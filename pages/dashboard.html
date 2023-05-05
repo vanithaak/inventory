@@ -73,6 +73,20 @@
       margin-bottom: 20px;
     }
 
+    .modal-body {
+      padding-left: 3rem;
+      padding-right: 3rem;
+      padding-top: 3rem;
+    }
+
+    .modal-footer {
+      border-top: 1px solid white !important;
+    }
+
+    .modal-content {
+      border-radius: 0;
+    }
+
     /* Style for the form inputs */
     .form-input {
       margin-bottom: 20px;
@@ -162,8 +176,8 @@
   </style>
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
-  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+<body class="g-sidenav-show" style="background-color: #28304e;">
+  <div class="min-height-300 position-absolute w-100"></div>
   <aside
     class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 "
     id="sidenav-main">
@@ -774,17 +788,18 @@
                   <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round"
                     stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
                 </svg> -->
-                <h4 class="text-gradient text-primary mt-4">Done!</h4>
+                <h4 class="mt-4">Request Sent to Branches.</h4>
                 <!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
+                <button type="button" class="btn btn-primary text-white mt-3 btn-lg w-100" data-bs-dismiss="modal"
+                  style="border-radius: 0;">CLOSE</button>
               </div>
             </div>
-            <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-white">Ok, Got it</button> -->
-              <button type="button" class="btn btn-primary ml-auto text-white" data-bs-dismiss="modal">Okay!</button>
-            </div>
+
           </div>
         </div>
       </div>
+
+
 
       <!-- MODAL -->
 
