@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script defer src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            color: #ebdbad;
+        }
+
+        .form-container {
+            width: 50%;
+            padding: 50px;
+            /* background-color: #fff; */
+            /* border-radius: 5px; */
+            /* box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); */
+        }
+
+        .image-container {
+            flex: 1;
+            /* background-image: url('your-image-path.jpg'); */
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 50%;
+            /* height: 75px; */
+            /* width: 75px; */
+        }
+
+        .question {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        select {
+            display: block;
+            width: 100%;
+            font-family: inherit;
+            /* color: rgb(235, 219, 173); */
+            padding: 0px 32px 8px 0px;
+            border: none !important;
+            outline: none;
+            border-radius: 0px !important;
+            appearance: none;
+            background-image: none;
+            background-position: initial;
+            background-size: initial;
+            background-repeat: initial;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            transform: translateZ(0px);
+            font-size: 30px !important;
+            -webkit-font-smoothing: antialiased;
+            line-height: unset;
+            -webkit-text-fill-color: rgba(235, 220, 173, 0.938);
+            animation: 1ms ease 0s 1 normal none running native-autofill-in;
+            transition: background-color 1e+08s ease 0s, box-shadow 0.1s ease-out 0s;
+            box-shadow: rgba(235, 219, 173, 0.3) 0px 1px;
+            background-color: transparent !important;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            font-family: inherit;
+            color: rgb(235, 219, 173);
+            padding: 0px 0px 8px;
+            border: none !important;
+            outline: none;
+            border-radius: 0px !important;
+            appearance: none;
+            background-image: none;
+            background-position: initial;
+            background-size: initial;
+            background-repeat: initial;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            transform: translateZ(0px);
+            font-size: 30px !important;
+            -webkit-font-smoothing: antialiased;
+            line-height: unset;
+            -webkit-text-fill-color: rgba(235, 220, 173, 0.938);
+            animation: 1ms ease 0s 1 normal none running native-autofill-in;
+            transition: background-color 1e+08s ease 0s, box-shadow 0.1s ease-out 0s !important;
+            box-shadow: rgba(235, 219, 173, 0.3) 0px 1px;
+            background-color: transparent !important;
+        }
+
+        .buttons button {
+            position: relative;
+            font-family: inherit;
+            line-height: initial;
+            font-weight: 700;
+            cursor: pointer;
+            transition-duration: 0.1s;
+            transition-property: background-color, color, border-color, opacity, box-shadow;
+            transition-timing-function: ease-out;
+            outline: none;
+            border: 1px solid transparent;
+            margin: 0px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 12px 0px;
+            padding: 6px 14px;
+            min-height: 40px;
+            background-color: rgb(235, 219, 173);
+            color: rgb(0, 0, 0);
+        }
+
+        option {
+            font-size: 18px !important;
+        }
+
+        .select2-results__option {
+            position: relative;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            border-radius: var(--sampler-theme-border-radius);
+            background-color: rgba(235, 219, 173, 0.1);
+            box-shadow: rgba(235, 219, 173, 0.6) 0px 0px 0px 1px inset;
+            color: rgb(235, 219, 173);
+            max-width: 100%;
+            height: inherit;
+            min-height: 40px;
+            outline: 0px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            transition-duration: 0.1s;
+            transition-property: background-color, color, border-color, opacity, box-shadow;
+            transition-timing-function: ease-out;
+            width: 100%;
+            word-break: break-word;
+            cursor: pointer;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="container"> -->
+    <div class="form-container">
+        <div class="step active" id="step1">
+            <div class="question">
+                <!-- <h2></h2> -->
+                <h4 class="mb-5">1. Please Select a Warehouse</h4>
+
+                <!-- <p></p> -->
+            </div>
+
+            <select class="form-control" id="answer1">
+                <option>Choose a Warehouse</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </div>
+
+        <div class="step" id="step2">
+            <div class="question">
+                <h4 class="mb-5">2. What's the Type of Item?</h4>
+                <!-- <p>Wha</p> -->
+            </div>
+            <select class="form-control" id="answer2">
+                <option>Choose a Type</option>
+                <option>Expiry Item</option>
+                <option>Non-Moving Item</option>
+                <option>Excess Item</option>
+            </select>
+        </div>
+
+        <div class="step" id="step3">
+            <div class="question">
+                <h4 class="mb-3">3. Pick a Date</h4>
+                <p class="mb-5 font-weight-normal">Select the starting date from which month you want your products</p>
+            </div>
+            <input class="form-control" type="date" value="" id="answer3">
+        </div>
+
+        <div class="step" id="step4">
+            <div class="question">
+                <h4 class="mb-5">4. Ending Date</h4>
+                <!-- <p class="mb-5 font-weight-normal">Select the starting date from which month you want your products</p> -->
+            </div>
+            <input class="form-control" type="date" value="" id="answer4">
+        </div>
+
+        <div class="step" id="step5">
+            <div class="question form-group">
+                <h4 class="mb-5">5. Which Branch ?</h4>
+                <!-- <p>Wha</p> -->
+            </div>
+            <select class="js-example-basic-multiple form-control select2 multiple" name="states[]" multiple="multiple"
+                id="answer5">
+                <optgroup label="North">
+                    <option value="">A</option>
+                    <option value="">B</option>
+                    <option value="">C</option>
+                </optgroup>
+                <optgroup label="West">
+                    <option value="">A</option>
+                    <option value="">B</option>
+                    <option value="">C</option>
+                </optgroup>
+                <optgroup label="South">
+                    <option value="">A</option>
+                    <option value="">B</option>
+                    <option value="">C</option>
+                </optgroup>
+                <optgroup label="East">
+                    <option value="">A</option>
+                    <option value="">B</option>
+                    <option value="">C</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="step" id="step6">
+            <div class="question">
+                <h4 class="mb-5">6. Who's the Manufacturer ?</h4>
+                <!-- <p>Wha</p> -->
+            </div>
+            <select class="form-control" id="answer6">
+                <option>Choose a Branch</option>
+                <option>Expiry Item</option>
+                <option>Non-Moving Item</option>
+                <option>Excess Item</option>
+            </select>
+        </div>
+
+        <div class="step" id="step7">
+            <div class="question">
+                <h4 class="mb-5">7. ..and the Supplier?</h4>
+                <!-- <p>Wha</p> -->
+            </div>
+            <select class="form-control" id="answer7">
+                <option>Choose a Branch</option>
+                <option>Expiry Item</option>
+                <option>Non-Moving Item</option>
+                <option>Excess Item</option>
+            </select>
+        </div>
+
+        <div class="step" id="step8">
+            <div class="question">
+                <h4 class="mb-5">8. Last, What's the Item Category ?</h4>
+                <!-- <p>Wha</p> -->
+            </div>
+            <select class="form-control" id="answer8">
+                <option>Choose a Branch</option>
+                <option>Expiry Item</option>
+                <option>Non-Moving Item</option>
+                <option>Excess Item</option>
+            </select>
+        </div>
+
+
+
+        <div class="buttons">
+            <button id="prevBtn" class="btn btn-primary">Previous</button>
+            <button id="nextBtn" class="btn btn-primary">Next</button>
+        </div>
+    </div>
+    <div class="image-container">
+        <div
+            class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+            <div id="imageStep1"
+                class="position-relative bg-gradient-primary h-100 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
+                style="background-image: url('../assets/img/inventory2.png');
+        background-size: cover;">
+                <span class="mask bg-gradient-primary opacity-6"></span>
+                <!-- <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new currency"</h4>
+              <p class="text-white position-relative">The more effortless the writing looks, the more effort the writer actually put into the process.</p> -->
+            </div>
+        </div>
+        <!--  -->
+    </div>
+
+    <!-- </div> -->
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var currentStep = 1;
+            var totalSteps = $(".step").length;
+            $('.js-example-basic-multiple').select2();
+
+            showStep(currentStep);
+
+            $("#nextBtn").click(function () {
+                if (validateStep(currentStep)) {
+                    if (currentStep === totalSteps) {
+                        submitForm();
+                    } else {
+                        currentStep++;
+                        showStep(currentStep);
+                    }
+                }
+            });
+
+            $("#prevBtn").click(function () {
+                currentStep--;
+                showStep(currentStep);
+            });
+
+            function showStep(step) {
+                $(".step").removeClass("active");
+                $("#step" + step).addClass("active");
+
+                if (step === 1) {
+                    $("#prevBtn").hide();
+                } else {
+                    $("#prevBtn").show();
+                }
+
+                if (step === totalSteps) {
+                    $("#nextBtn").text("Submit");
+                } else {
+                    $("#nextBtn").text("Next");
+                }
+
+                $(".image-container > div").hide();
+                $("#imageStep" + step).show();
+            }
+
+            function validateStep(step) {
+                var answer = $("#answer" + step).val();
+
+                if (answer === "") {
+                    alert("Please enter a valid answer for step " + step + ".");
+                    return false;
+                }
+
+                return true;
+            }
+
+            function submitForm() {
+                alert("Form submitted successfully!");
+            }
+        });
+    </script>
+
+
+
+</body>
+
+</html>

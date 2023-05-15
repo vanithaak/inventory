@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Near to Expiry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css">
+    <style>
+        body {
+            background-color: black;
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            /* margin: 0; */
+            /* padding: 0; */
+            color: #ebdbad;
+        }
+
+        .form-container {
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .form-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* margin-bottom: 20px; */
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-question {
+            width: 50%;
+            /* top: ; */
+            float: left;
+            padding: 50px;
+        }
+
+        .form-image {
+            width: 50%;
+            float: right;
+            /* padding: 20px; */
+            text-align: center;
+        }
+
+        .form-buttons {
+            clear: both;
+            margin-top: 20px;
+        }
+
+        .btn,
+        .btn:hover {
+            position: relative;
+            font-family: inherit;
+            line-height: initial;
+            font-weight: 700;
+            cursor: pointer;
+            transition-duration: 0.1s;
+            transition-property: background-color, color, border-color, opacity, box-shadow;
+            transition-timing-function: ease-out;
+            outline: none;
+            border: 1px solid transparent;
+            margin: 0px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 12px 0px;
+            padding: 6px 14px;
+            min-height: 40px;
+            background-color: rgb(235, 219, 173);
+            color: rgb(0, 0, 0);
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            font-family: inherit;
+            color: rgb(235, 219, 173);
+            padding: 0px 0px 8px;
+            border: none !important;
+            outline: none !important;
+            border-radius: 0px !important;
+            appearance: none;
+            background-image: none;
+            background-position: initial;
+            background-size: initial;
+            background-repeat: initial;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            transform: translateZ(0px);
+            font-size: 30px !important;
+            -webkit-font-smoothing: antialiased;
+            line-height: unset;
+            -webkit-text-fill-color: rgba(235, 220, 173, 0.938);
+            animation: 1ms ease 0s 1 normal none running native-autofill-in !important;
+            transition: background-color 1e+08s ease 0s, box-shadow 0.1s ease-out 0s !important;
+            box-shadow: rgba(235, 219, 173, 0.3) 0px 1px;
+            background-color: transparent !important;
+        }
+
+        .select2-container--default .select2-results__option--selected, .select2-results__option, .select2-search--dropdown {
+            background-color: black !important;
+        }
+
+        /* .select2-search__field {
+            border: 1px solid rgb(235, 219, 173) !important;
+        } */
+
+        .select2-container .select2-selection--single .select2-selection__rendered, .select2-container--default .select2-selection--multiple, .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: black;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: rgb(235, 219, 173) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="con">
+        <div class="form-container">
+            <!-- <div class="form-progress">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
+                        aria-valuemax="100"></div>
+                </div>
+            </div> -->
+            <form id="multiStepForm" class="form">
+                <div class="form-step active" data-step="1">
+                    <div class="form-question">
+                        <h3 class="mb-5">1. Please Select a Warehouse</h3>
+                        <!-- <p>Question 1</p> -->
+                        <div class="form-group">
+                            <select class="form-control select2" style="width: 100%;">
+                                <option value="">Option 1</option>
+                                <option value="">Option 2</option>
+                                <option value="">Option 3</option>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <div class="form-image">
+                        <img src="../assets/img/warehouse.png" alt="Image 1" style="max-width: 100%;">
+                    </div>
+
+                </div>
+
+                <div class="form-step" data-step="2">
+                    <div class="form-question">
+                        <h3 class="mb-5">2. What's the Type of Item</h3>
+                        <!-- <p>Question 2</p> -->
+                        <div class="form-group">
+                            <select class="form-control select2" style="width: 100%;">
+                                <option value="">Choose a Type</option>
+                                <option value="">Expiry Item</option>
+                                <option value="">Non-Moving Item</option>
+                                <option value="">Excess Item</option>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <div class="form-image">
+                        <img src="../assets/img/inventory2.png" alt="Image 2" style="max-width: 100%;">
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="3">
+                    <div class="form-question">
+                        <h3 class="mb-2">3. Pick a Date</h3>
+                        <p class="mb-5 font-weight-normal">Select the starting date from which month you want your
+                            products</p>
+                        <!-- <div class="form-group">
+                            <select class="form-control select2" style="width: 100%;">
+                                <option value="">Option 1</option>
+                                <option value="">Option 2</option>
+                                <option value="">Option 3</option>
+                            </select>
+                        </div> -->
+                        <input class="form-control" type="date" value="">
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <div class="form-image">
+                        <img src="../assets/img/items.png" alt="Image 3" style="max-width: 100%;">
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="4">
+                    <div class="form-question">
+                        <h3 class="mb-5">4. Ending Date</h3>
+                        <!-- <p>Question 4</p> -->
+                        <!-- <div class="form-group">
+                            <select class="form-control select2" style="width: 100%;">
+                                <option value="">Option 1</option>
+                                <option value="">Option 2</option>
+                                <option value="">Option 3</option>
+                            </select>
+                        </div> -->
+                        <input class="form-control" type="date" value="">
+                        <!-- <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div> -->
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <div class="form-image">
+                        <img src="../assets/img/enddate.png" alt="Image 4" style="max-width: 100%;">
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="5">
+                    <div class="form-question">
+                        <h3 class="mb-5">5. Which Branch</h3>
+                        <!-- <p>Question 2</p> -->
+                        <div class="form-group">
+                            <select class="form-control select2" style="width: 100%;" multiple="multiple">
+                                <optgroup label="North">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="West">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="South">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="East">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <div class="form-image">
+                        <img src="../assets/img/branch.png" alt="Image 2" style="max-width: 100%;">
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="6">
+                    <div class="form-question">
+                        <h3 class="mb-5">6. Who's the Manufacturer?</h3>
+                        <!-- <p>Question 2</p> -->
+                        <div class="form-group">
+                            <select class="form-control select2" style="width: 100%;" multiple="multiple">
+                                <optgroup label="North">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="West">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="South">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="East">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <div class="form-image">
+                        <img src="../assets/img/manufacturer.png" alt="Image 2" style="max-width: 100%;">
+                    </div>
+                </div>
+
+                <div class="form-step" data-step="7">
+                    <div class="form-question">
+                        <h3 class="mb-5">7. ..and the Supplier?</h3>
+                        <!-- <p>Question 2</p> -->
+                        <div class="form-group">
+                            <select class="form-control select2" style="width: 100%;" multiple="multiple">
+                                <optgroup label="North">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="West">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="South">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="East">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <div class="form-image">
+                        <img src="../assets/img/supplier.png" alt="Image 2" style="max-width: 100%;">
+                    </div>
+                </div>    
+                
+                <div class="form-step" data-step="8">
+                    <div class="form-question">
+                        <h3 class="mb-5">8. Last, What's the Item Category ?</h3>
+                        <!-- <p>Question 2</p> -->
+                        <div class="form-group">
+                            <select class="form-control select2" style="width: 100%;" multiple="multiple">
+                                <optgroup label="North">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="West">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="South">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                                  <optgroup label="East">
+                                    <option value="">A</option>
+                                    <option value="">B</option>
+                                    <option value="">C</option>
+                                  </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                    <div class="form-image">
+                        <img src="../assets//img/inventory.png" alt="Image 2" style="max-width: 100%;">
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize Select2
+            $('.select2').select2();
+
+            // Show the first step
+            showStep(1);
+
+            // Handle next button click
+            $('.next-btn').click(function () {
+                var currentStep = $(this).closest('.form-step').data('step');
+                showStep(currentStep + 1);
+            });
+
+            // Handle previous button click
+            $('.prev-btn').click(function () {
+                var currentStep = $(this).closest('.form-step').data('step');
+                showStep(currentStep - 1);
+            });
+
+            // Handle form submission
+            $('#multiStepForm').submit(function (e) {
+                e.preventDefault();
+                // Perform form submission logic here
+            });
+
+            // Function to show the given step
+            function showStep(step) {
+                $('.form-step').removeClass('active');
+                $('.form-step[data-step="' + step + '"]').addClass('active');
+                $('.progress-bar').css('width', ((step - 1) * 33.33) + '%');
+            }
+        });
+    </script>
