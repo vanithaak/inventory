@@ -105,9 +105,9 @@
             font-family: inherit;
             color: white;
             padding: 0px 0px 8px;
-            border: none !important;
+            /* border: none !important; */
             outline: none !important;
-            border-radius: 0px !important;
+            border-radius: 4px !important;
             appearance: none;
             background-image: none;
             background-position: initial;
@@ -253,7 +253,49 @@
             width: 100%;
             word-break: break-word;
             cursor: pointer;
-            opacity: 1
+            opacity: 1;
+            margin-top: 0.4rem;
+        }
+
+        .select2-container--default .select2-results__option .select2-results__option {
+            padding-left: 1em;
+            width: 452px;
+            /* max-width: 40rem; */
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            background: none;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border-bottom: #ff6633;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #ff6633;
+        }
+
+        .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+            background-color: #8758fb59;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: #fff0;
+            font-size: 25px;
+            color: white;
+        }
+
+        .select2-container .select2-selection--single {
+            padding-top: 1rem;
+            height: 58px;
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            color: white;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 54px;
         }
     </style>
 </head>
@@ -343,7 +385,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="form-step" data-step="4">
                     <div class="form-question">
                         <h3 class="mb-5">4. Which Branch</h3>
