@@ -16,7 +16,7 @@
             /* display: flex; */
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            /* height: 100vh; */
             /* margin: 0; */
             /* padding: 0; */
             color: #fff;
@@ -25,7 +25,7 @@
             /* line-height: 0; */
             opacity: 1;
             background-color: rgb(52, 29, 113);
-            background-image: url(https://images.typeform.com/images/5izkvuWLJpBB/background/large);
+            background-image: url(../assets/img/bg.png);
             background-position: center top;
             background-size: cover;
             height: 100%;
@@ -34,13 +34,14 @@
             top: 0px;
             left: 0px;
             font-family: 'Arvo', serif;
+            /* background-repeat: none; */
         }
 
         .form-container {
             /* display: flex; */
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            /* height: 100vh; */
         }
 
         .form-progress {
@@ -75,6 +76,11 @@
             float: right;
             /* padding: 20px; */
             text-align: center;
+        }
+
+        .form-image img {
+            border-radius: 10px;
+            /* margin-top: 10px; */
         }
 
         .form-buttons {
@@ -257,17 +263,51 @@
             height: 54px;
         }
 
-        @media (max-width: 768px) {
-        .form-question {
-            width: 100%;
-            padding: 20px;
+        @media (max-width: 576px) {
+            .form-question {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .form-image {
+                display: none;
+            }
         }
 
-        .form-image {
-            display: none;
+        /* Medium screens (577px - 992px) */
+        @media (min-width: 577px) and (max-width: 992px) {
+            .form-question {
+                width: 100%;
+                padding: 30px;
+                height: auto;
+            }
+
+            .form-image {
+                display: none;
+                /* width: 40%;
+                margin: 0 auto; */
+            }
         }
-    }
+
+        /* Large screens (993px and above) */
+        @media (min-width: 993px) {
+            body {
+                height: 10vh !important;
+            }
+            .form-question {
+                width: 50%;
+                padding: 40px;
+            }
+
+            .form-image {
+                display: block;
+                width: 50%;
+                margin: 0 auto;
+                /* height: 20rem !important; */
+            }
+        }
     </style>
+
 </head>
 
 <body>
