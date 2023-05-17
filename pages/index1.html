@@ -129,49 +129,6 @@
             background-color: transparent !important;
         }
 
-        .select2-container--default .select2-results__option--selected,
-        .select2-results__option,
-        .select2-search--dropdown {
-            /* background-color: black !important; */
-        }
-
-        /* .select2-search__field {
-            border: 1px solid rgb(235, 219, 173) !important;
-        } */
-
-        .select2-container .select2-selection--single .select2-selection__rendered,
-        .select2-container--default .select2-selection--multiple,
-        .select2-container--default .select2-selection--multiple .select2-selection__choice {
-            /* background-color: black; */
-        }
-
-        /* .select2-container--default .select2-selection--single .select2-selection__rendered {
-            display: block;
-            width: 100%;
-            font-family: inherit;
-            color: rgb(255, 255, 255);
-            padding: 0px 32px 8px 0px;
-            border: none;
-            outline: none;
-            border-radius: 0px;
-            appearance: none;
-            background-image: none;
-            background-position: initial;
-            background-size: initial;
-            background-repeat: initial;
-            background-attachment: initial;
-            background-origin: initial;
-            background-clip: initial;
-            transform: translateZ(0px);
-            font-size: 30px;
-            -webkit-font-smoothing: antialiased;
-            line-height: unset;
-            -webkit-text-fill-color: rgba(255, 255, 255, 0.3);
-            animation: 1ms ease 0s 1 normal none running native-autofill-in;
-            transition: background-color 1e+08s ease 0s, box-shadow 0.1s ease-out 0s;
-            box-shadow: rgba(255, 255, 255, 0.3) 0px 1px;
-            background-color: transparent !important;
-        } */
 
         .form-step {
             display: none;
@@ -299,6 +256,17 @@
         .select2-container--default .select2-selection--single .select2-selection__arrow {
             height: 54px;
         }
+
+        @media (max-width: 768px) {
+        .form-question {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .form-image {
+            display: none;
+        }
+    }
     </style>
 </head>
 
