@@ -7,16 +7,33 @@
     <title>Near to Expiry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: black;
+            /* background-color: black; */
             /* display: flex; */
             align-items: center;
             justify-content: center;
             height: 100vh;
             /* margin: 0; */
             /* padding: 0; */
-            color: #ebdbad;
+            color: #fff;
+
+            z-index: -20;
+            /* line-height: 0; */
+            opacity: 1;
+            background-color: rgb(52, 29, 113);
+            background-image: url(https://images.typeform.com/images/5izkvuWLJpBB/background/large);
+            background-position: center top;
+            background-size: cover;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            font-family: 'Arvo', serif;
         }
 
         .form-container {
@@ -43,9 +60,12 @@
 
         .form-question {
             width: 50%;
-            /* top: ; */
             float: left;
             padding: 50px;
+            /* display: flex; */
+            /* flex-direction: column; */
+            justify-content: center;
+            align-items: center;
         }
 
         .form-image {
@@ -68,7 +88,6 @@
             font-weight: 700;
             cursor: pointer;
             transition-duration: 0.1s;
-            transition-property: background-color, color, border-color, opacity, box-shadow;
             transition-timing-function: ease-out;
             outline: none;
             border: 1px solid transparent;
@@ -76,8 +95,8 @@
             box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 12px 0px;
             padding: 6px 14px;
             min-height: 40px;
-            background-color: rgb(235, 219, 173);
-            color: rgb(0, 0, 0);
+            background-color: #ff6633;
+            color: black;
         }
 
         input {
@@ -108,20 +127,69 @@
             background-color: transparent !important;
         }
 
-        .select2-container--default .select2-results__option--selected, .select2-results__option, .select2-search--dropdown {
-            background-color: black !important;
+        .select2-container--default .select2-results__option--selected,
+        .select2-results__option,
+        .select2-search--dropdown {
+            /* background-color: black !important; */
         }
 
         /* .select2-search__field {
             border: 1px solid rgb(235, 219, 173) !important;
         } */
 
-        .select2-container .select2-selection--single .select2-selection__rendered, .select2-container--default .select2-selection--multiple, .select2-container--default .select2-selection--multiple .select2-selection__choice {
-            background-color: black;
+        .select2-container .select2-selection--single .select2-selection__rendered,
+        .select2-container--default .select2-selection--multiple,
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            /* background-color: black; */
         }
 
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             color: rgb(235, 219, 173) !important;
+        }
+
+        .form-step {
+            display: none;
+            animation: fade-in 0.3s ease-in-out;
+        }
+
+        @keyframes fade-in {
+            0% {
+                transform: translate(0px, 100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(0px, 0);
+                opacity: 1;
+            }
+        }
+
+        .next-btn,
+        .prev-btn {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            /* margin: 10px; */
+        }
+
+        .btn {
+            border-radius: 0;
+        }
+
+        .next-btn:hover,
+        .prev-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background-color: #ff663336;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #ff6633;
+            width: 0;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
@@ -130,12 +198,11 @@
 
     <div class="con">
         <div class="form-container">
-            <!-- <div class="form-progress">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
-                        aria-valuemax="100"></div>
+            <div class="form-progress">
+                <div class="progress-bar">
+                    <div class="progress"></div>
                 </div>
-            </div> -->
+            </div>
             <form id="multiStepForm" class="form">
                 <div class="form-step active" data-step="1">
                     <div class="form-question">
@@ -171,7 +238,7 @@
                             </select>
                         </div>
                         <div class="form-buttons">
-                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
                             <button type="button" class="btn btn-primary next-btn">Next</button>
                         </div>
                     </div>
@@ -195,7 +262,7 @@
                         <input class="form-control" type="date" value="">
 
                         <div class="form-buttons">
-                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
                             <button type="button" class="btn btn-primary next-btn">Next</button>
                         </div>
                     </div>
@@ -221,7 +288,7 @@
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div> -->
                         <div class="form-buttons">
-                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
                             <button type="button" class="btn btn-primary next-btn">Next</button>
                         </div>
                     </div>
@@ -240,26 +307,26 @@
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="West">
+                                </optgroup>
+                                <optgroup label="West">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="South">
+                                </optgroup>
+                                <optgroup label="South">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="East">
+                                </optgroup>
+                                <optgroup label="East">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
+                                </optgroup>
                             </select>
                         </div>
                         <div class="form-buttons">
-                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
                             <button type="button" class="btn btn-primary next-btn">Next</button>
                         </div>
                     </div>
@@ -278,26 +345,26 @@
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="West">
+                                </optgroup>
+                                <optgroup label="West">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="South">
+                                </optgroup>
+                                <optgroup label="South">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="East">
+                                </optgroup>
+                                <optgroup label="East">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
+                                </optgroup>
                             </select>
                         </div>
                         <div class="form-buttons">
-                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
                             <button type="button" class="btn btn-primary next-btn">Next</button>
                         </div>
                     </div>
@@ -316,34 +383,34 @@
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="West">
+                                </optgroup>
+                                <optgroup label="West">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="South">
+                                </optgroup>
+                                <optgroup label="South">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="East">
+                                </optgroup>
+                                <optgroup label="East">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
+                                </optgroup>
                             </select>
                         </div>
                         <div class="form-buttons">
-                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
                             <button type="button" class="btn btn-primary next-btn">Next</button>
                         </div>
                     </div>
                     <div class="form-image">
                         <img src="../assets/img/supplier.png" alt="Image 2" style="max-width: 100%;">
                     </div>
-                </div>    
-                
+                </div>
+
                 <div class="form-step" data-step="8">
                     <div class="form-question">
                         <h3 class="mb-5">8. Last, What's the Item Category ?</h3>
@@ -354,26 +421,26 @@
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="West">
+                                </optgroup>
+                                <optgroup label="West">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="South">
+                                </optgroup>
+                                <optgroup label="South">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
-                                  <optgroup label="East">
+                                </optgroup>
+                                <optgroup label="East">
                                     <option value="">A</option>
                                     <option value="">B</option>
                                     <option value="">C</option>
-                                  </optgroup>
+                                </optgroup>
                             </select>
                         </div>
                         <div class="form-buttons">
-                            <button type="button" class="btn btn-primary prev-btn">Previous</button>
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
@@ -392,6 +459,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
+            const totalSteps = 8;
             // Initialize Select2
             $('.select2').select2();
 
@@ -418,9 +486,22 @@
 
             // Function to show the given step
             function showStep(step) {
-                $('.form-step').removeClass('active');
-                $('.form-step[data-step="' + step + '"]').addClass('active');
-                $('.progress-bar').css('width', ((step - 1) * 33.33) + '%');
+                // Hide all form steps
+                const formSteps = document.querySelectorAll('.form-step');
+                formSteps.forEach((formStep) => {
+                    formStep.style.display = 'none';
+                });
+
+                // Show the current step
+                const currentStep = document.querySelector(`.form-step[data-step="${step}"]`);
+                currentStep.style.display = 'block';
+
+                // Add animation effects to the step transition
+                currentStep.classList.add('fade-in');
+
+                const progress = document.querySelector('.progress');
+                progress.style.width = `${((step - 1) / totalSteps) * 100}%`;
             }
         });
+
     </script>
