@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Transaction Cards with Pie Charts</title>
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/css/bootstrap.min.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+  <style>
+    .card-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      width: 400px;
+      text-align: center;
+      padding: 20px;
+      margin-right: 20px;
+    }
+
+    canvas {
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container">
+    <div class="card">
+      <h3>Transaction No: 123456</h3>
+      <canvas id="pieChart1"></canvas>
+      <button class="btn btn-primary">View</button>
+    </div>
+    <div class="card">
+      <h3>Transaction No: 789012</h3>
+      <canvas id="pieChart2"></canvas>
+      <button class="btn btn-primary">View</button>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.7.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Initialize Chart.js for the first card
+      var ctx1 = document.getElementById('pieChart1').getContext('2d');
+      var myChart1 = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+          labels: ['Category 1', 'Category 2', 'Category 3'],
+          datasets: [{
+            label: 'Transaction Categories',
+            data: [30, 40, 30],
+            backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'],
+          }]
+        },
+        options: {}
+      });
+
+      // Initialize Chart.js for the second card
+      var ctx2 = document.getElementById('pieChart2').getContext('2d');
+      var myChart2 = new Chart(ctx2, {
+        type: 'pie',
+        data: {
+          labels: ['Category A', 'Category B', 'Category C'],
+          datasets: [{
+            label: 'Transaction Categories',
+            data: [20, 50, 30],
+            backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'],
+          }]
+        },
+        options: {}
+      });
+    });
+  </script>
+</body>
+</html>

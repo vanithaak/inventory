@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Near to Expiry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropzone/dist/dropzone.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!-- <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" /> -->
+
+    <style>
+        body {
+            background-color: rgb(235, 240, 242);
+            background-image: linear-gradient(90deg, rgba(117, 19, 93, 0.562) 50%, rgba(245, 246, 252, 0.52) 100%),
+                url('../assets/img/bg1\ \(2\).jpg');
+            /* background: linear-gradient(to top, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)); */
+            /* background: linear-gradient(90deg, rgba(117,19,93,0.73) 50%,rgba(245,246,252,0.52) 100%); */
+            background-position: center top;
+            background-size: cover;
+            /* background-image: url('../assets/img/bg1\ \(2\).jpg'); */
+            height: 100vh;
+            width: 100%;
+            /* position: absolute; */
+            top: 0px;
+            left: 0px;
+            font-family: 'Arvo', serif;
+            /* background-repeat: none; */
+            /* transform: rotate(45deg); */
+
+
+        }
+
+
+
+        a {
+            letter-spacing: -0.025rem;
+            color: #344767;
+            text-decoration: none;
+        }
+
+
+        .btn,
+        .btn:hover {
+            position: relative;
+            font-family: inherit;
+            line-height: initial;
+            font-weight: 700;
+            cursor: pointer;
+            transition-duration: 0.1s;
+            transition-timing-function: ease-out;
+            outline: none;
+            border: 1px solid transparent;
+            margin: 0px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 12px 0px;
+            padding: 6px 14px;
+            min-height: 40px;
+            background-color: black;
+            color: white;
+            border-radius: 3px !important;
+        }
+
+
+        body {
+            /* display: none; */
+            animation: fade-in 0.3s ease-in-out;
+        }
+
+        @keyframes fade-in {
+            0% {
+                transform: translate(0px, 100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(0px, 0);
+                opacity: 1;
+            }
+        }
+
+
+
+        .btn {
+            border-radius: 0;
+        }
+
+
+        @media (max-width: 576px) {
+
+            footer {
+                background: #000000a8 !important;
+            }
+        }
+
+        /* Medium screens (577px - 992px) */
+        @media (min-width: 577px) and (max-width: 992px) {
+            .form-question {
+                width: 100%;
+                padding: 30px;
+                height: auto;
+            }
+
+            .form-image {
+                display: none;
+                /* width: 40%;
+                margin: 0 auto; */
+            }
+
+            .rad-btn {
+                width: auto !important;
+            }
+        }
+
+        /* Large screens (993px and above) */
+        @media (min-width: 993px) {
+            body {
+                height: 10vh !important;
+            }
+
+            /* .form-question {
+                width: 50%;
+                padding: 40px;
+            } */
+
+            .form-image {
+                display: block;
+                width: 50%;
+                margin: 0 auto;
+                /* height: 20rem !important; */
+            }
+
+            .rad-btn {
+                width: auto;
+            }
+
+        }
+
+
+        .main-content {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .page-header {
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: 50%;
+        }
+
+        .min-vh-100 {
+            min-height: 100vh !important;
+        }
+
+        .page-header .container {
+            z-index: 1;
+        }
+
+        @media (min-width: 992px) {
+            .mx-lg-0 {
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+            }
+
+            .rad-btn {
+                width: 17rem;
+            }
+        }
+
+        .flex-column {
+            flex-direction: column !important;
+        }
+
+        .card.card-plain {
+            background-color: transparent;
+            box-shadow: none !important;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+        }
+
+        .card {
+            border: none !important;
+        }
+
+        .text-muted {
+            color: #67748e !important;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .blink-button {
+            animation: blink 0.5s infinite;
+        }
+
+        h3 {
+            color: white;
+        }
+
+        input[type="radio"].toggle:checked+label span,
+        input[type="checkbox"].toggle:checked+label span {
+            color: black;
+            background-color: white;
+        }
+
+        .form-control {
+            background-color: #ffffff33;
+            color: white;
+        }
+
+        .input-group-text {
+            background-color: #ffffff33;
+            color: white;
+        }
+
+        .card-header {
+            background-color: white;
+            border-bottom: none;
+        }
+
+        .card-footer {
+            background-color: white;
+            border-top: none;
+        }
+
+        .card {
+            width: 350px;
+            text-align: center;
+            padding: 20px;
+            margin-right: 20px;
+        }
+
+        /* canvas {
+            margin: 20px auto;
+        } */
+    </style>
+
+</head>
+
+<body class="">
+
+    <!-- <div class="container"> -->
+    <!-- <div class="form-container"> -->
+
+    <main class="main-content  mt-0">
+        <section>
+            <div class="page-header min-vh-100">
+                <div class="container">
+                    <div class="row">
+                        <div class="d-flex flex-column mx-lg-0 mx-auto h-100 col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-header pb-0 text-start">
+                                    <h4 class="font-weight-bolder text-center">Transaction No: 123456</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="pieChart1"></canvas>
+                                </div>
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1 d-grid">
+                                    <button class="btn-primary text-gradient font-weight-bold btn"
+                                        data-bs-toggle="modal" data-bs-target="#item-table">VIEW</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mx-lg-0 mx-auto h-100 col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-header pb-0 text-start">
+                                    <h4 class="font-weight-bolder text-center">Transaction No: 123456</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="pieChart2"></canvas>
+                                </div>
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1 d-grid">
+                                    <button class="btn-primary text-gradient font-weight-bold btn">VIEW</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mx-lg-0 mx-auto h-100 col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-header pb-0 text-start">
+                                    <h4 class="font-weight-bolder text-center">Transaction No: 123456</h4>
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="pieChart3"></canvas>
+                                </div>
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1 d-grid">
+                                    <button class="btn-primary text-gradient font-weight-bold btn">VIEW</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer pt-3 pb-2 mt-auto fixed-bottom">
+                <div class="container-fluid">
+                    <div class="row align-items-center justify-content-lg-between">
+                        <div class="col-lg-6 mb-lg-0 mb-4">
+                            <div class="copyright text-center text-sm text-white text-lg-start">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script>,
+                                made with <i class="fa fa-fire text-white"></i> by
+                                <a href="" class="font-weight-bold text-white" target="_blank">Wellness
+                                    Forever</a>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="nav nav-footer justify-content-center justify-content-lg-end">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+
+
+    </main>
+
+
+    <div class="modal fade" id="item-table" tabindex="-1" aria-labelledby="item-table" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- <h5 class="modal-title" id="item-table">Modal title</h5> -->
+                    <button class="btn btn-primary">Import Pick List</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0" id="branchTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                        Branch Code
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Branch
+                                        Name
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Supplier Count</th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Item
+                                        Count
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Dispatch
+                                        Date
+                                    </th>
+                                    <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        View
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox">
+                                    </td>
+                                    <td class="align-middle text-center px-2 pe-4">
+                                        <span class="text-secondary text-xs font-weight-bold">110</span>
+                                    </td>
+
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">West Side</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-uppercase text-xs font-weight-bold">110</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">100</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <span class="text-secondary text-xs font-weight-bold">11/02/2023</span>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-link mb-0" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i class="fa fa-eye text-xs"></i>
+                                        </button>
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Send to Branches</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- </div> -->
+    <!-- </div> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+
+
+    <script>
+
+        var ctx1 = document.getElementById('pieChart1').getContext('2d');
+        var myChart1 = new Chart(ctx1, {
+            type: 'pie',
+            data: {
+                labels: ['Category 1', 'Category 2', 'Category 3'],
+                datasets: [{
+                    label: 'Transaction Categories',
+                    data: [30, 40, 30],
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'],
+                }]
+            },
+            options: {}
+        });
+
+        // Initialize Chart.js for the second card
+        var ctx2 = document.getElementById('pieChart2').getContext('2d');
+        var myChart2 = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['Category A', 'Category B', 'Category C'],
+                datasets: [{
+                    label: 'Transaction Categories',
+                    data: [20, 50, 30],
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'],
+                }]
+            },
+            options: {}
+        });
+
+        var ctx3 = document.getElementById('pieChart3').getContext('2d');
+        var myChart3 = new Chart(ctx3, {
+            type: 'pie',
+            data: {
+                labels: ['Category A', 'Category B', 'Category C'],
+                datasets: [{
+                    label: 'Transaction Categories',
+                    data: [10, 60, 30],
+                    backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'],
+                }]
+            },
+            options: {}
+        });
+
+
+    </script>
+
+</body>
+
+</html>
