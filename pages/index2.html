@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Near to Expiry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dropzone/dist/dropzone.min.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,24 +14,40 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
     <!-- <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" /> -->
 
     <style>
         body {
             background-color: rgb(235, 240, 242);
-            /* background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)),
-                url('../assets/img/bg_new.jpg'); */
-            /* background-position: center top; */
-            /* background-size: cover; */
-            background-image: url('../assets/img/bg_new.jpg');
-            height: 100%;
+            background-image: linear-gradient(90deg, rgba(117, 19, 93, 0.562) 50%, rgba(245, 246, 252, 0.52) 100%),
+                url('../assets/img/bg1\ \(2\).jpg');
+            /* background: linear-gradient(to top, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)); */
+            /* background: linear-gradient(90deg, rgba(117,19,93,0.73) 50%,rgba(245,246,252,0.52) 100%); */
+            background-position: center top;
+            background-size: cover;
+            /* background-image: url('../assets/img/bg1\ \(2\).jpg'); */
+            height: 100vh;
             width: 100%;
             /* position: absolute; */
             top: 0px;
             left: 0px;
             font-family: 'Arvo', serif;
             /* background-repeat: none; */
+            /* transform: rotate(45deg); */
 
+
+        }
+
+        .container {
+            padding: 0px !important;
+        }
+
+        a {
+            letter-spacing: -0.025rem;
+            color: #344767;
+            text-decoration: none;
         }
 
         .form-container {
@@ -105,8 +122,9 @@
             box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 12px 0px;
             padding: 6px 14px;
             min-height: 40px;
-            background-color: #ff6633;
-            color: black;
+            background-color: black;
+            color: white;
+            border-radius: 3px !important;
         }
 
 
@@ -145,12 +163,12 @@
         .progress-bar {
             width: 100%;
             height: 5px;
-            background-color: #ff663336;
+            background-color: #ffffff36;
         }
 
         .progress {
             height: 100%;
-            background-color: rgb(82, 180, 227);
+            background-color: rgb(0, 0, 0);
             width: 0;
             transition: width 0.3s ease;
         }
@@ -158,7 +176,7 @@
         @media (max-width: 576px) {
             .form-question {
                 width: 100%;
-                padding: 20px;
+                /* padding: 20px; */
             }
 
             .form-image {
@@ -171,6 +189,10 @@
 
             input[type="radio"].toggle.toggle-left+label {
                 margin-bottom: 10px;
+            }
+
+            .rad-btn {
+                width: auto;
             }
         }
 
@@ -186,6 +208,10 @@
                 display: none;
                 /* width: 40%;
                 margin: 0 auto; */
+            }
+
+            .rad-btn {
+                width: auto;
             }
         }
 
@@ -207,10 +233,14 @@
                 /* height: 20rem !important; */
             }
 
+            .rad-btn {
+                width: auto;
+            }
+
         }
 
         .rad-btn {
-            /* border: 1px solid #808080; */
+            border: 1px solid white;
             display: inline-block;
             padding: 5px 10px;
             /* font-size: 20px; */
@@ -220,6 +250,9 @@
             -webkit-transition: background 600ms ease, color 600ms ease;
             transition: background 600ms ease, color 600ms ease;
             width: 17rem;
+            color: white;
+            background-color: #ffffff33;
+
         }
 
         .rad-btn span {
@@ -274,9 +307,10 @@
 
         input[type="radio"].toggle:checked+label,
         input[type="checkbox"].toggle:checked+label {
-            background: #FFF;
+            /* background: #FFF; */
             cursor: default;
-            color: #000;
+            /* color: #000; */
+            border: 2px solid white;
         }
 
         input[type="radio"].toggle:checked+label:after,
@@ -284,13 +318,8 @@
             left: 0;
         }
 
-        input[type="file"] {
-            /* position: absolute; */
-            /* inset: 0px; */
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
+        .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+            margin-left: -2px !important;
         }
 
         .main-content {
@@ -320,6 +349,10 @@
                 margin-right: 0 !important;
                 margin-left: 0 !important;
             }
+
+            .rad-btn {
+                width: 17rem;
+            }
         }
 
         .flex-column {
@@ -331,11 +364,6 @@
             box-shadow: none !important;
         }
 
-        .card .card-body {
-            /* font-family: "Open Sans", sans-serif; */
-            padding: 1.5rem;
-        }
-
         .card-body {
             flex: 1 1 auto;
         }
@@ -343,515 +371,672 @@
         .card {
             border: none !important;
         }
+
+        .text-muted {
+            color: #67748e !important;
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .blink-button {
+            animation: blink 0.5s infinite;
+        }
+
+        h3 {
+            color: white;
+        }
+
+        input[type="radio"].toggle:checked+label span {
+            color: black;
+            background-color: white;
+        }
+
+        .form-control {
+            background-color: #ffffff33;
+            color: white;
+        }
+
+        .input-group-text {
+            background-color: #ffffff33;
+            color: white;
+        }
     </style>
 
 </head>
 
 <body class="">
 
-    <!-- <div class="con"> -->
-    <div class="form-container">
-        <div class="form-progress">
-            <div class="progress-bar">
-                <div class="progress"></div>
+    <div class="containe">
+        <div class="form-container">
+            <div class="form-progress">
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
             </div>
-        </div>
 
 
-        <main class="main-content  mt-0">
-            <section>
-                <div class="page-header min-vh-100">
-                    <div class="container">
-                        <div class="row">
-                            <div class="d-flex flex-column mx-lg-0 mx-auto h-100">
-                                <div class="card card-plain">
-                                    <!-- <div class="card-header pb-0 text-start">
+            <main class="main-content  mt-0">
+                <section>
+                    <div class="page-header min-vh-100">
+                        <div class="container">
+                            <div class="row">
+                                <div class="d-flex flex-column mx-lg-0 mx-auto h-100">
+                                    <div class="card card-plain">
+                                        <!-- <div class="card-header pb-0 text-start">
                                 <h4 class="font-weight-bolder text-center">1. Please Select a Warehouse</h4>
                                 <p class="mb-0 text-center">Enter your email and password to sign in</p>
                               </div> -->
-                                    <div class="card-body">
-                                        <form id="multiStepForm" class="form">
-                                            <div class="form-step active" data-step="1">
-                                                <div class="form-question">
-                                                    <h3 class="mb-5">1. Please Select a Warehouse</h3>
-                                                    <div class="input-control">
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q1-opt1" class="toggle toggle-left next-btn"
-                                                                    name="q1" type="radio">
-                                                                <label for="q1-opt1" class="rad-btn btn"><span>A</span>
-                                                                    Swift Storage
-                                                                    Solutions</label>
+                                        <div class="card-body">
+                                            <form id="multiStepForm" class="form">
+                                                <div class="form-step active" data-step="1">
+                                                    <div class="form-question">
+                                                        <h3 class="mb-5">1. Please Select a Warehouse</h3>
+                                                        <div class="input-control">
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q1-opt1"
+                                                                        class="toggle toggle-left next-btn" name="q1"
+                                                                        type="radio">
+                                                                    <label for="q1-opt1"
+                                                                        class="rad-btn btn"><span>A</span>
+                                                                        Swift Storage
+                                                                        Solutions</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q1-opt2"
+                                                                        class="toggle toggle-right next-btn" name="q1"
+                                                                        type="radio">
+                                                                    <label for="q1-opt2"
+                                                                        class="rad-btn btn"><span>B</span>
+                                                                        MegaWare
+                                                                        Logistics</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q1-opt3"
+                                                                        class="toggle toggle-right next-btn" name="q1"
+                                                                        type="radio">
+                                                                    <label for="q1-opt3"
+                                                                        class="rad-btn btn"><span>C</span>
+                                                                        Apex
+                                                                        Distribution
+                                                                        Center</label>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q1-opt2" class="toggle toggle-right next-btn"
-                                                                    name="q1" type="radio">
-                                                                <label for="q1-opt2" class="rad-btn btn"><span>B</span>
-                                                                    MegaWare
-                                                                    Logistics</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q1-opt3" class="toggle toggle-right next-btn"
-                                                                    name="q1" type="radio">
-                                                                <label for="q1-opt3" class="rad-btn btn"><span>C</span>
-                                                                    Apex
-                                                                    Distribution
-                                                                    Center</label>
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q1-opt4"
+                                                                        class="toggle toggle-right next-btn" name="q1"
+                                                                        type="radio">
+                                                                    <label for="q1-opt4"
+                                                                        class="rad-btn btn"><span>D</span>
+                                                                        Titan
+                                                                        Inventory Hub</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q1-opt5"
+                                                                        class="toggle toggle-right next-btn" name="q1"
+                                                                        type="radio">
+                                                                    <label for="q1-opt5"
+                                                                        class="rad-btn btn"><span>E</span>
+                                                                        Elite Storage
+                                                                        Depot</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q1-opt6"
+                                                                        class="toggle toggle-right next-btn" name="q1"
+                                                                        type="radio">
+                                                                    <label for="q1-opt6"
+                                                                        class="rad-btn btn"><span>F</span>
+                                                                        ProLogix
+                                                                        Warehouses</label>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q1-opt4" class="toggle toggle-right next-btn"
-                                                                    name="q1" type="radio">
-                                                                <label for="q1-opt4" class="rad-btn btn"><span>D</span>
-                                                                    Titan
-                                                                    Inventory Hub</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q1-opt5" class="toggle toggle-right next-btn"
-                                                                    name="q1" type="radio">
-                                                                <label for="q1-opt5" class="rad-btn btn"><span>E</span>
-                                                                    Elite Storage
-                                                                    Depot</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q1-opt6" class="toggle toggle-right next-btn"
-                                                                    name="q1" type="radio">
-                                                                <label for="q1-opt6" class="rad-btn btn"><span>F</span>
-                                                                    ProLogix
-                                                                    Warehouses</label>
-                                                            </div>
+                                                        <div class="form-buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary next-btn">NEXT</button>
                                                         </div>
                                                     </div>
-                                                    <div class="form-buttons">
-                                                        <button type="button"
-                                                            class="btn btn-primary next-btn">Next</button>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="form-image">
+                                                    <!-- <div class="form-image">
                                             <img src="../assets/img/warehouse.png" alt="Image 1" style="max-width: 100%;">
                                         </div> -->
 
-                                            </div>
+                                                </div>
 
-                                            <div class="form-step" data-step="2">
-                                                <div class="form-question">
-                                                    <h3 class="mb-5">2. What's the Type of Item ?</h3>
-                                                    <div class="input-control">
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q2-opt1" class="toggle toggle-left next-btn"
-                                                                    name="q2" type="radio">
-                                                                <label for="q2-opt1" class="rad-btn btn"><span>A</span>
-                                                                    Expiry
-                                                                    Item</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q2-opt2" class="toggle toggle-right next-btn"
-                                                                    name="q2" type="radio">
-                                                                <label for="q2-opt2" class="rad-btn btn"><span>B</span>
-                                                                    Non-Moving
-                                                                    Item</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q2-opt3" class="toggle toggle-right next-btn"
-                                                                    name="q2" type="radio">
-                                                                <label for="q2-opt3" class="rad-btn btn"><span>C</span>
-                                                                    Excess
-                                                                    Item</label>
+                                                <div class="form-step" data-step="2">
+                                                    <div class="form-question">
+                                                        <h3 class="mb-5">2. What's the Type of Item ?</h3>
+                                                        <div class="input-control">
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q2-opt1"
+                                                                        class="toggle toggle-left next-btn" name="q2"
+                                                                        type="radio">
+                                                                    <label for="q2-opt1"
+                                                                        class="rad-btn btn"><span>A</span>
+                                                                        Expiry
+                                                                        Item</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q2-opt2"
+                                                                        class="toggle toggle-right next-btn" name="q2"
+                                                                        type="radio">
+                                                                    <label for="q2-opt2"
+                                                                        class="rad-btn btn"><span>B</span>
+                                                                        Non-Moving
+                                                                        Item</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q2-opt3"
+                                                                        class="toggle toggle-right next-btn" name="q2"
+                                                                        type="radio">
+                                                                    <label for="q2-opt3"
+                                                                        class="rad-btn btn"><span>C</span>
+                                                                        Excess
+                                                                        Item</label>
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                        <div class="form-buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary prev-btn me-2">PREV</button>
+                                                            <button type="button"
+                                                                class="btn btn-primary next-btn">NEXT</button>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-buttons">
-                                                        <button type="button"
-                                                            class="btn btn-primary prev-btn me-2">Previous</button>
-                                                        <button type="button"
-                                                            class="btn btn-primary next-btn">Next</button>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="form-image">
+                                                    <!-- <div class="form-image">
                                             <img src="../assets/img/inventory2.png" alt="Image 2" style="max-width: 100%;">
                                         </div> -->
-                                            </div>
-
-
-                                            <div class="form-step" data-step="3">
-                                                <div class="form-question">
-                                                    <h3 class="mb-5">3. Pick a Date</h3>
-
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <div class="input-group date" id="start-date">
-                                                                <input type="text" class="form-control" id="date" />
-                                                                <span class="input-group-append">
-                                                                    <span class="input-group-text bg-light d-block">
-                                                                        <i class="fa fa-calendar"></i>
-                                                                    </span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <div class="input-group date" id="end-date">
-                                                                <input type="text" class="form-control" id="date" />
-                                                                <span class="input-group-append">
-                                                                    <span class="input-group-text bg-light d-block">
-                                                                        <i class="fa fa-calendar"></i>
-                                                                    </span>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-buttons">
-                                                        <button type="button"
-                                                            class="btn btn-primary prev-btn me-2">Previous</button>
-                                                        <button type="button"
-                                                            class="btn btn-primary next-btn">Next</button>
-                                                    </div>
                                                 </div>
-                                                <!-- <div class="form-image">
+
+
+                                                <div class="form-step" data-step="3">
+                                                    <div class="form-question">
+                                                        <h3 class="mb-5">3. Pick a Date</h3>
+
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <div class="input-group date" id="start-date">
+                                                                    <input type="text" class="form-control" id="date" />
+                                                                    <span class="input-group-append">
+                                                                        <span class="input-group-text d-block">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="input-group date" id="end-date">
+                                                                    <input type="text" class="form-control" id="date" />
+                                                                    <span class="input-group-append">
+                                                                        <span class="input-group-text d-block">
+                                                                            <i class="fa fa-calendar"></i>
+                                                                        </span>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary prev-btn me-2">PREV</button>
+                                                            <button type="button"
+                                                                class="btn btn-primary next-btn">NEXT</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="form-image">
                                             <img src="../assets/img/items.png" alt="Image 3" style="max-width: 100%;">
                                         </div> -->
-                                            </div>
-
-
-                                            <div class="form-step" data-step="4">
-                                                <div class="form-question">
-                                                    <h3 class="pb-5">4. Which Branch ?</h3>
-                                                    <p class="mb-5">Select as many as you can</p>
-                                                    <div class="input-control">
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q4-opt1" class="toggle toggle-left" name="q4"
-                                                                    type="checkbox">
-                                                                <label for="q4-opt1" class="rad-btn btn"><span>A</span>
-                                                                    Mumbai
-                                                                    Central
-                                                                    Branch</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q4-opt2" class="toggle toggle-right"
-                                                                    name="q4" type="checkbox">
-                                                                <label for="q4-opt2" class="rad-btn btn"><span>B</span>
-                                                                    Colaba
-                                                                    Branch</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q4-opt3" class="toggle toggle-right"
-                                                                    name="q4" type="checkbox">
-                                                                <label for="q4-opt3" class="rad-btn btn"><span>C</span>
-                                                                    Bandra West
-                                                                    Branch
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q4-opt4" class="toggle toggle-right"
-                                                                    name="q4" type="checkbox">
-                                                                <label for="q4-opt4" class="rad-btn btn"><span>D</span>
-                                                                    Andheri East
-                                                                    Branch</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q4-opt5" class="toggle toggle-right"
-                                                                    name="q4" type="checkbox">
-                                                                <label for="q4-opt5" class="rad-btn btn"><span>E</span>
-                                                                    Dadar West
-                                                                    Branch</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q4-opt6" class="toggle toggle-right"
-                                                                    name="q4" type="checkbox">
-                                                                <label for="q4-opt6" class="rad-btn btn"><span>F</span>
-                                                                    Malad West
-                                                                    Branch</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q4-opt7" class="toggle toggle-right"
-                                                                    name="q4" type="checkbox">
-                                                                <label for="q4-opt7" class="rad-btn btn"><span>G</span>
-                                                                    Vashi
-                                                                    Branch</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-buttons">
-                                                        <button type="button"
-                                                            class="btn btn-primary prev-btn me-2">Previous</button>
-                                                        <button type="button"
-                                                            class="btn btn-primary next-btn">Next</button>
-                                                    </div>
                                                 </div>
-                                                <!-- <div class="form-image">
+
+
+                                                <div class="form-step" data-step="4">
+                                                    <div class="form-question">
+                                                        <h3 class="pb-5">4. Which Branch ?</h3>
+                                                        <p class="mb-5 text-white">Select as many as you can</p>
+                                                        <div class="input-control">
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q4-opt1" class="toggle toggle-left"
+                                                                        name="q4" type="checkbox">
+                                                                    <label for="q4-opt1"
+                                                                        class="rad-btn btn"><span>A</span>
+                                                                        Mumbai
+                                                                        Central
+                                                                        Branch</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q4-opt2" class="toggle toggle-right"
+                                                                        name="q4" type="checkbox">
+                                                                    <label for="q4-opt2"
+                                                                        class="rad-btn btn"><span>B</span>
+                                                                        Colaba
+                                                                        Branch</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q4-opt3" class="toggle toggle-right"
+                                                                        name="q4" type="checkbox">
+                                                                    <label for="q4-opt3"
+                                                                        class="rad-btn btn"><span>C</span>
+                                                                        Bandra West
+                                                                        Branch
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q4-opt4" class="toggle toggle-right"
+                                                                        name="q4" type="checkbox">
+                                                                    <label for="q4-opt4"
+                                                                        class="rad-btn btn"><span>D</span>
+                                                                        Andheri East
+                                                                        Branch</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q4-opt5" class="toggle toggle-right"
+                                                                        name="q4" type="checkbox">
+                                                                    <label for="q4-opt5"
+                                                                        class="rad-btn btn"><span>E</span>
+                                                                        Dadar West
+                                                                        Branch</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q4-opt6" class="toggle toggle-right"
+                                                                        name="q4" type="checkbox">
+                                                                    <label for="q4-opt6"
+                                                                        class="rad-btn btn"><span>F</span>
+                                                                        Malad West
+                                                                        Branch</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q4-opt7" class="toggle toggle-right"
+                                                                        name="q4" type="checkbox">
+                                                                    <label for="q4-opt7"
+                                                                        class="rad-btn btn"><span>G</span>
+                                                                        Vashi
+                                                                        Branch</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary prev-btn me-2">PREV</button>
+                                                            <button type="button"
+                                                                class="btn btn-primary next-btn">NEXT</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="form-image">
                                             <img src="../assets/img/branch.png" alt="Image 2" style="max-width: 100%;">
                                         </div> -->
-                                            </div>
-
-                                            <div class="form-step" data-step="5">
-                                                <div class="form-question">
-                                                    <h3 class="pb-5">5. Who's the Manufacturer?</h3>
-                                                    <p class="mb-5">Select as many as you can</p>
-                                                    <div class="input-control">
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q5-opt1" class="toggle toggle-left" name="q5"
-                                                                    type="checkbox">
-                                                                <label for="q5-opt1" class="rad-btn btn"><span>A</span>
-                                                                    Marico
-                                                                    Limited</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q5-opt2" class="toggle toggle-right"
-                                                                    name="q5" type="checkbox">
-                                                                <label for="q5-opt2" class="rad-btn btn"><span>B</span>
-                                                                    Dabur India
-                                                                    Limited</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q5-opt3" class="toggle toggle-right"
-                                                                    name="q5" type="checkbox">
-                                                                <label for="q5-opt3" class="rad-btn btn"><span>C</span>
-                                                                    Colgate-Palmolive India
-                                                                    Limited</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q5-opt4" class="toggle toggle-right"
-                                                                    name="q5" type="checkbox">
-                                                                <label for="q5-opt4" class="rad-btn btn"><span>D</span>
-                                                                    Asian Paints
-                                                                    Limited</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q5-opt5" class="toggle toggle-right"
-                                                                    name="q5" type="checkbox">
-                                                                <label for="q5-opt5" class="rad-btn btn"><span>E</span>
-                                                                    Procter &
-                                                                    Gamble
-                                                                    (P&G)</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q5-opt6" class="toggle toggle-right"
-                                                                    name="q5" type="checkbox">
-                                                                <label for="q5-opt6" class="rad-btn btn"><span>F</span>
-                                                                    Parle
-                                                                    Products Pvt.
-                                                                    Ltd.</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q5-opt7" class="toggle toggle-right"
-                                                                    name="q5" type="checkbox">
-                                                                <label for="q5-opt7" class="rad-btn btn"><span>G</span>
-                                                                    Asian Paints
-                                                                    Limited</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q5-opt8" class="toggle toggle-right"
-                                                                    name="q5" type="checkbox">
-                                                                <label for="q5-opt8" class="rad-btn btn"><span>H</span>
-                                                                    Johnson &
-                                                                    Johnson
-                                                                    India</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-buttons">
-                                                        <button type="button"
-                                                            class="btn btn-primary prev-btn me-2">Previous</button>
-                                                        <button type="button"
-                                                            class="btn btn-primary next-btn">Next</button>
-                                                    </div>
                                                 </div>
-                                                <!-- <div class="form-image">
+
+                                                <div class="form-step" data-step="5">
+                                                    <div class="form-question">
+                                                        <h3 class="pb-5">5. Who's the Manufacturer?</h3>
+                                                        <p class="mb-5 text-white">Select as many as you can</p>
+                                                        <div class="input-control">
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q5-opt1" class="toggle toggle-left"
+                                                                        name="q5" type="checkbox">
+                                                                    <label for="q5-opt1"
+                                                                        class="rad-btn btn"><span>A</span>
+                                                                        Marico
+                                                                        Limited</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q5-opt2" class="toggle toggle-right"
+                                                                        name="q5" type="checkbox">
+                                                                    <label for="q5-opt2"
+                                                                        class="rad-btn btn"><span>B</span>
+                                                                        Dabur India
+                                                                        Limited</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q5-opt3" class="toggle toggle-right"
+                                                                        name="q5" type="checkbox">
+                                                                    <label for="q5-opt3"
+                                                                        class="rad-btn btn"><span>C</span>
+                                                                        Colgate-Palmolive India
+                                                                        Limited</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q5-opt4" class="toggle toggle-right"
+                                                                        name="q5" type="checkbox">
+                                                                    <label for="q5-opt4"
+                                                                        class="rad-btn btn"><span>D</span>
+                                                                        Asian Paints
+                                                                        Limited</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q5-opt5" class="toggle toggle-right"
+                                                                        name="q5" type="checkbox">
+                                                                    <label for="q5-opt5"
+                                                                        class="rad-btn btn"><span>E</span>
+                                                                        Procter &
+                                                                        Gamble
+                                                                        (P&G)</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q5-opt6" class="toggle toggle-right"
+                                                                        name="q5" type="checkbox">
+                                                                    <label for="q5-opt6"
+                                                                        class="rad-btn btn"><span>F</span>
+                                                                        Parle
+                                                                        Products Pvt.
+                                                                        Ltd.</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q5-opt7" class="toggle toggle-right"
+                                                                        name="q5" type="checkbox">
+                                                                    <label for="q5-opt7"
+                                                                        class="rad-btn btn"><span>G</span>
+                                                                        Asian Paints
+                                                                        Limited</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q5-opt8" class="toggle toggle-right"
+                                                                        name="q5" type="checkbox">
+                                                                    <label for="q5-opt8"
+                                                                        class="rad-btn btn"><span>H</span>
+                                                                        Johnson &
+                                                                        Johnson
+                                                                        India</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary prev-btn me-2">PREV</button>
+                                                            <button type="button"
+                                                                class="btn btn-primary next-btn">NEXT</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="form-image">
                                             <img src="../assets/img/manufacturer.png" alt="Image 2" style="max-width: 100%;">
                                         </div> -->
-                                            </div>
-
-                                            <div class="form-step" data-step="6">
-                                                <div class="form-question">
-                                                    <h3 class="pb-5">6. ..and the Supplier?</h3>
-                                                    <p class="mb-5">Select as many as you can</p>
-                                                    <div class="input-control">
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q6-opt1" class="toggle toggle-left" name="q6"
-                                                                    type="checkbox">
-                                                                <label for="q6-opt1" class="rad-btn btn"><span>A</span>
-                                                                    Nature's
-                                                                    Basket</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q6-opt2" class="toggle toggle-right"
-                                                                    name="q6" type="checkbox">
-                                                                <label for="q6-opt2" class="rad-btn btn"><span>B</span>
-                                                                    Grocio</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q6-opt3" class="toggle toggle-right"
-                                                                    name="q6" type="checkbox">
-                                                                <label for="q6-opt3" class="rad-btn btn"><span>C</span>
-                                                                    DMart</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q6-opt4" class="toggle toggle-right"
-                                                                    name="q6" type="checkbox">
-                                                                <label for="q6-opt4" class="rad-btn btn"><span>D</span>
-                                                                    StarQuik
-                                                                    (Tata
-                                                                    Digital)</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q6-opt5" class="toggle toggle-right"
-                                                                    name="q6" type="checkbox">
-                                                                <label for="q6-opt5" class="rad-btn btn"><span>E</span>
-                                                                    Spencer's
-                                                                    Retail</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q6-opt6" class="toggle toggle-right"
-                                                                    name="q6" type="checkbox">
-                                                                <label for="q6-opt6" class="rad-btn btn"><span>F</span>
-                                                                    Walmart India
-                                                                    Pvt.
-                                                                    Ltd.</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-buttons">
-                                                        <button type="button"
-                                                            class="btn btn-primary prev-btn me-2">Previous</button>
-                                                        <button type="button"
-                                                            class="btn btn-primary next-btn">Next</button>
-                                                    </div>
                                                 </div>
-                                                <!-- <div class="form-image">
+
+                                                <div class="form-step" data-step="6">
+                                                    <div class="form-question">
+                                                        <h3 class="pb-5">6. ..and the Supplier?</h3>
+                                                        <p class="mb-5 text-white">Select as many as you can</p>
+                                                        <div class="input-control">
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q6-opt1" class="toggle toggle-left"
+                                                                        name="q6" type="checkbox">
+                                                                    <label for="q6-opt1"
+                                                                        class="rad-btn btn"><span>A</span>
+                                                                        Nature's
+                                                                        Basket</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q6-opt2" class="toggle toggle-right"
+                                                                        name="q6" type="checkbox">
+                                                                    <label for="q6-opt2"
+                                                                        class="rad-btn btn"><span>B</span>
+                                                                        Grocio</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q6-opt3" class="toggle toggle-right"
+                                                                        name="q6" type="checkbox">
+                                                                    <label for="q6-opt3"
+                                                                        class="rad-btn btn"><span>C</span>
+                                                                        DMart</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q6-opt4" class="toggle toggle-right"
+                                                                        name="q6" type="checkbox">
+                                                                    <label for="q6-opt4"
+                                                                        class="rad-btn btn"><span>D</span>
+                                                                        StarQuik
+                                                                        (Tata
+                                                                        Digital)</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q6-opt5" class="toggle toggle-right"
+                                                                        name="q6" type="checkbox">
+                                                                    <label for="q6-opt5"
+                                                                        class="rad-btn btn"><span>E</span>
+                                                                        Spencer's
+                                                                        Retail</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q6-opt6" class="toggle toggle-right"
+                                                                        name="q6" type="checkbox">
+                                                                    <label for="q6-opt6"
+                                                                        class="rad-btn btn"><span>F</span>
+                                                                        Walmart India
+                                                                        Pvt.
+                                                                        Ltd.</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary prev-btn me-2">PREV</button>
+                                                            <button type="button"
+                                                                class="btn btn-primary next-btn">NEXT</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="form-image">
                                             <img src="../assets/img/supplier.png" alt="Image 2" style="max-width: 100%;">
                                         </div> -->
-                                            </div>
-
-                                            <div class="form-step" data-step="7">
-                                                <div class="form-question">
-                                                    <h3 class="pb-5">7. Last, What's the Item Category ?</h3>
-                                                    <p class="mb-5">Select as many as you can</p>
-                                                    <div class="input-control">
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q7-opt1" class="toggle toggle-left" name="q7"
-                                                                    type="checkbox">
-                                                                <label for="q7-opt1" class="rad-btn btn"><span>A</span>
-                                                                    Food and
-                                                                    Beverages</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q7-opt2" class="toggle toggle-right"
-                                                                    name="q7" type="checkbox">
-                                                                <label for="q7-opt2" class="rad-btn btn"><span>B</span>
-                                                                    Personal Care
-                                                                    and
-                                                                    Hygiene</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q7-opt3" class="toggle toggle-right"
-                                                                    name="q7" type="checkbox">
-                                                                <label for="q7-opt3" class="rad-btn btn"><span>C</span>
-                                                                    Household
-                                                                    Cleaning and
-                                                                    Care</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q7-opt4" class="toggle toggle-right"
-                                                                    name="q7" type="checkbox">
-                                                                <label for="q7-opt4" class="rad-btn btn"><span>D</span>
-                                                                    Health and
-                                                                    Wellness</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q7-opt5" class="toggle toggle-right"
-                                                                    name="q7" type="checkbox">
-                                                                <label for="q7-opt5" class="rad-btn btn"><span>E</span>
-                                                                    Baby and
-                                                                    Child Care</label>
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <input id="q7-opt6" class="toggle toggle-right"
-                                                                    name="q7" type="checkbox">
-                                                                <label for="q7-opt6" class="rad-btn btn"><span>F</span>
-                                                                    Pet
-                                                                    Care</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-buttons">
-                                                        <button type="button"
-                                                            class="btn btn-primary prev-btn me-2">Previous</button>
-                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                    </div>
                                                 </div>
-                                                <!-- <div class="form-image">
+
+                                                <div class="form-step" data-step="7">
+                                                    <div class="form-question">
+                                                        <h3 class="pb-5">7. Last, What's the Item Category ?</h3>
+                                                        <p class="mb-5 text-white">Select as many as you can</p>
+                                                        <div class="input-control">
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q7-opt1" class="toggle toggle-left"
+                                                                        name="q7" type="checkbox">
+                                                                    <label for="q7-opt1"
+                                                                        class="rad-btn btn"><span>A</span>
+                                                                        Food and
+                                                                        Beverages</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q7-opt2" class="toggle toggle-right"
+                                                                        name="q7" type="checkbox">
+                                                                    <label for="q7-opt2"
+                                                                        class="rad-btn btn"><span>B</span>
+                                                                        Personal Care
+                                                                        and
+                                                                        Hygiene</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q7-opt3" class="toggle toggle-right"
+                                                                        name="q7" type="checkbox">
+                                                                    <label for="q7-opt3"
+                                                                        class="rad-btn btn"><span>C</span>
+                                                                        Household
+                                                                        Cleaning and
+                                                                        Care</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q7-opt4" class="toggle toggle-right"
+                                                                        name="q7" type="checkbox">
+                                                                    <label for="q7-opt4"
+                                                                        class="rad-btn btn"><span>D</span>
+                                                                        Health and
+                                                                        Wellness</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q7-opt5" class="toggle toggle-right"
+                                                                        name="q7" type="checkbox">
+                                                                    <label for="q7-opt5"
+                                                                        class="rad-btn btn"><span>E</span>
+                                                                        Baby and
+                                                                        Child Care</label>
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <input id="q7-opt6" class="toggle toggle-right"
+                                                                        name="q7" type="checkbox">
+                                                                    <label for="q7-opt6"
+                                                                        class="rad-btn btn"><span>F</span>
+                                                                        Pet
+                                                                        Care</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary prev-btn me-2">PREV</button>
+                                                            <button type="submit"
+                                                                class="btn btn-primary">SUBMIT</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="form-image">
                                             <img src="../assets//img/inventory.png" alt="Image 2" style="max-width: 100%;">
                                         </div> -->
-                                            </div>
-
-                                            <div class="form-step" data-step="8">
-                                                <div class="form-question">
-                                                    <h3 class="mb-5">3. Upload Transcript?</h3>
-
-                                                    <div class="mb-3">
-                                                        <label for="formFile" class="form-label"></label>
-                                                        <input class="form-control" type="file" id="formFile">
-                                                    </div>
-
-                                                    <div class="form-buttons">
-                                                        <button type="button"
-                                                            class="btn btn-primary prev-btn me-2">Previous</button>
-                                                        <button type="button"
-                                                            class="btn btn-primary next-btn">Next</button>
-                                                    </div>
                                                 </div>
-                                                <!-- <div class="form-image">
+
+                                                <div class="form-step" data-step="8">
+                                                    <div class="form-question">
+                                                        <h3 class="mb-5">3. Upload Transcript?</h3>
+
+                                                        <form action="/upload" class="dropzone" id="myDropzone">
+                                                            <div class="fallback">
+                                                                <input type="file" name="file" multiple>
+                                                            </div>
+                                                        </form>
+
+                                                        <div class="form-buttons">
+                                                            <button type="button"
+                                                                class="btn btn-primary prev-btn me-2">PREV</button>
+                                                            <button type="button"
+                                                                class="btn btn-primary">SUBMIT</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="form-image">
                                             <img src="../assets/img/items.png" alt="Image 3" style="max-width: 100%;">
                                         </div> -->
-                                            </div>
+                                                </div>
 
-                                        </form>
-                                    </div>
-                                    <!-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                            </form>
+                                        </div>
+                                        <!-- <div class="card-footer text-center pt-0 px-lg-2 px-1">
                                 <p class="mb-4 text-sm mx-auto">
                                   Don't have an account?
                                   <a class="text-primary text-gradient font-weight-bold" href="sign-up.html">Sign up</a>
                                 </p>
                               </div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </main>
+
+                    <footer class="footer pt-3 pb-2 mt-auto fixed-bottom">
+                    <div class="container-fluid">
+                        <div class="row align-items-center justify-content-lg-between">
+                            <div class="col-lg-6 mb-lg-0 mb-4">
+                                <div class="copyright text-center text-sm text-white text-lg-start">
+                                    ©
+                                    <script>
+                                        document.write(new Date().getFullYear())
+                                    </script>,
+                                    made with <i class="fa fa-bomb text-white"></i> by
+                                    <a href="" class="font-weight-bold text-white" target="_blank">Wellness Forever</a>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="nav nav-footer justify-content-center justify-content-lg-end">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                </section>
+
+
+
+            </main>
 
 
 
 
+        </div>
     </div>
-    <!-- </div> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script> -->
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dropzone@5.9.3/dist/min/dropzone.min.js"></script>
+
+
     <script>
         $(document).ready(function () {
+            // if (typeof Dropzone !== "undefined") {
+            //     Dropzone.autoDiscover = false; // Disable autoDiscover to prevent multiple attachments
+
+            //     // Initialize Dropzone on the form
+            //     var myDropzone = new Dropzone("#myDropzone", {
+            //         url: "/upload",
+            //         paramName: "file", // Name of the file input field
+            //         maxFilesize: 5, // Maximum file size in MB
+            //         acceptedFiles: ".jpeg,.jpg,.png,.pdf", // Allowed file extensions
+            //         dictDefaultMessage: "Drop files here or click to upload", // Default message
+            //         addRemoveLinks: true, // Show remove button
+            //     });
+
+            //     // Event listener for when files are added
+            //     myDropzone.on("addedfile", function (file) {
+            //         console.log("File added: " + file.name);
+            //     });
+
+            //     // Event listener for when files are successfully uploaded
+            //     myDropzone.on("success", function (file, response) {
+            //         console.log("File uploaded: " + file.name);
+            //         console.log("Server response: " + response);
+            //     });
+
+            //     // Event listener for when an error occurs during upload
+            //     myDropzone.on("error", function (file, errorMessage) {
+            //         console.log("Error uploading file: " + file.name);
+            //         console.log("Error message: " + errorMessage);
+            //     });
+            // }
+
+            $('.btn').click(function () {
+                var button = $(this);
+                if (!button.hasClass('blink-button')) {
+                    button.addClass('blink-button');
+                    setTimeout(function () {
+                        button.removeClass('blink-button');
+                    }, 1000);
+                }
+            });
             const totalSteps = 7;
             // Show the first step
             showStep(1);
@@ -865,7 +1050,7 @@
                 showStep(currentStep + 1);
             });
 
-            // Handle previous button click
+            // Handle PREV button click
             $('.prev-btn').click(function () {
                 var currentStep = $(this).closest('.form-step').data('step');
                 showStep(currentStep - 1);
