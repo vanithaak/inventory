@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Near to Expiry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            /* background-color: black; */
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+            /* height: 100vh; */
+            /* margin: 0; */
+            /* padding: 0; */
+            /* color: #fff; */
+
+            z-index: -20;
+            line-height: 0;
+            opacity: 1;
+            background-color: rgb(235, 240, 242);
+            /* background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)),
+                url('../assets/img/bg_new.jpg'); */
+            /* background-position: center top; */
+            /* background-size: cover; */
+            background-image: url('../assets/img/bg_new.jpg');
+            height: 100%;
+            width: 100%;
+            /* position: absolute; */
+            top: 0px;
+            left: 0px;
+            font-family: 'Arvo', serif;
+            /* background-repeat: none; */
+
+        }
+
+        .form-container {
+            /* display: flex; */
+            align-items: center;
+            justify-content: center;
+
+            /* height: 100vh; */
+        }
+
+        .form-progress {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* margin-bottom: 20px; */
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-question {
+            width: 80%;
+            /* float: l; */
+            /* padding-left: 100px;
+            padding-right: 100px; */
+            /* display: flex; */
+            /* flex-direction: column; */
+            justify-content: center;
+            align-items: center;
+            /* margin-top: 13%; */
+            /* background-color: white; */
+            text-align: left;
+            margin: 10% auto;
+            max-width: 800px;
+
+        }
+
+        /* .form-image {
+            width: 50%;
+            float: right;
+           
+            text-align: center;
+        } */
+
+        /* .form-image img {
+            border-radius: 10px;
+            
+        } */
+
+        .form-buttons {
+            clear: both;
+            margin-top: 20px;
+        }
+
+        .btn,
+        .btn:hover {
+            position: relative;
+            font-family: inherit;
+            line-height: initial;
+            font-weight: 700;
+            cursor: pointer;
+            transition-duration: 0.1s;
+            transition-timing-function: ease-out;
+            outline: none;
+            border: 1px solid transparent;
+            margin: 0px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 12px 0px;
+            padding: 6px 14px;
+            min-height: 40px;
+            background-color: #ff6633;
+            color: black;
+        }
+
+        /* input {
+            display: block;
+            width: 100%;
+            font-family: inherit;
+            color: white;
+            padding: 0px 0px 8px;
+            
+            outline: none !important;
+            border-radius: 4px !important;
+            appearance: none;
+            background-image: none;
+            background-position: initial;
+            background-size: initial;
+            background-repeat: initial;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            transform: translateZ(0px);
+            font-size: 30px !important;
+            -webkit-font-smoothing: antialiased;
+            line-height: unset;
+            -webkit-text-fill-color: white;
+            animation: 1ms ease 0s 1 normal none running native-autofill-in !important;
+            transition: background-color 1e+08s ease 0s, box-shadow 0.1s ease-out 0s !important;
+            box-shadow: rgba(235, 219, 173, 0.3) 0px 1px;
+            background-color: transparent !important;
+        } */
+
+
+        .form-step {
+            display: none;
+            animation: fade-in 0.3s ease-in-out;
+        }
+
+        @keyframes fade-in {
+            0% {
+                transform: translate(0px, 100px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translate(0px, 0);
+                opacity: 1;
+            }
+        }
+
+        .next-btn,
+        .prev-btn {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            /* margin: 10px; */
+        }
+
+        .btn {
+            border-radius: 0;
+        }
+
+        .next-btn:hover,
+        .prev-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background-color: #ff663336;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: rgb(82, 180, 227);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        /* .select2-results {
+            display: block;
+            z-index: 30;
+            position: absolute;
+            width: 100%;
+        }
+
+        .select2-container--default .select2-results>.select2-results__options {
+            transition: max-height 150ms ease-out 0s;
+            overflow: auto;
+            margin: 0px;
+            padding: 8px 0px 16px;
+        }
+
+
+        .select2-results__option,
+        .select2-search--dropdown {
+            position: relative;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            border-radius: 4px;
+            background-color: rgb(72, 52, 127);
+            box-shadow: rgba(255, 255, 255, 0.6) 0px 0px 0px 1px inset;
+            color: rgb(255, 255, 255);
+            max-width: 100%;
+            height: inherit;
+            min-height: 40px;
+            outline: 0px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            transition-duration: 0.1s;
+            transition-property: background-color, color, border-color, opacity, box-shadow;
+            transition-timing-function: ease-out;
+            width: 100%;
+            word-break: break-word;
+            cursor: pointer;
+            opacity: 1;
+            margin-top: 0.4rem;
+        }
+
+        .select2-container--default .select2-results__option .select2-results__option {
+            padding-left: 1em;
+           
+        } */
+        /* 
+        .select2-container--default .select2-selection--multiple {
+            background: none;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border-bottom: rgb(82, 180, 227);
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: rgb(82, 180, 227);
+        }
+
+        .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+            background-color: #8758fb59;
+        }
+
+        .select2-container--default .select2-selection--single {
+            background-color: #fff0;
+            font-size: 25px;
+            color: white;
+        }
+
+        .select2-container .select2-selection--single {
+            padding-top: 1rem;
+            height: 58px;
+        }
+
+        .select2-container .select2-selection--single .select2-selection__rendered {
+            color: white;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 54px;
+        } */
+
+        @media (max-width: 576px) {
+            .form-question {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .form-image {
+                display: none;
+            }
+
+            input[type="radio"].toggle.toggle-right+label {
+                margin-bottom: 10px;
+            }
+
+            input[type="radio"].toggle.toggle-left+label {
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Medium screens (577px - 992px) */
+        @media (min-width: 577px) and (max-width: 992px) {
+            .form-question {
+                width: 100%;
+                padding: 30px;
+                height: auto;
+            }
+
+            .form-image {
+                display: none;
+                /* width: 40%;
+                margin: 0 auto; */
+            }
+        }
+
+        /* Large screens (993px and above) */
+        @media (min-width: 993px) {
+            body {
+                height: 10vh !important;
+            }
+
+            /* .form-question {
+                width: 50%;
+                padding: 40px;
+            } */
+
+            .form-image {
+                display: block;
+                width: 50%;
+                margin: 0 auto;
+                /* height: 20rem !important; */
+            }
+
+        }
+
+        .rad-btn {
+            /* border: 1px solid #808080; */
+            display: inline-block;
+            padding: 5px 10px;
+            /* font-size: 20px; */
+            position: relative;
+            text-align: left;
+            border-radius: 3px;
+            -webkit-transition: background 600ms ease, color 600ms ease;
+            transition: background 600ms ease, color 600ms ease;
+            width: 17rem;
+        }
+
+        .rad-btn span {
+            border: 1px solid #808080;
+            display: inline-block;
+            padding: 1px 6px;
+            font-size: 12px;
+            border-radius: 5px;
+            vertical-align: middle;
+            text-align: center;
+            margin-top: -5px;
+        }
+
+        input[type="radio"].toggle,
+        input[type="checkbox"].toggle {
+            display: none;
+        }
+
+        input[type="radio"].toggle+label,
+        input[type="checkbox"].toggle+label {
+            cursor: pointer;
+            min-width: 80px;
+        }
+
+        input[type="radio"].toggle+label:hover,
+        input[type="checkbox"].toggle+label:hover {
+            background: none;
+            color: #FFF;
+        }
+
+        input[type="radio"].toggle+label:after,
+        input[type="checkbox"].toggle+label:after {
+            content: "";
+            height: 100%;
+            position: absolute;
+            top: 0;
+            -webkit-transition: left 100ms cubic-bezier(0.77, 0, 0.175, 1);
+            transition: left 100ms cubic-bezier(0.77, 0, 0.175, 1);
+            width: 100%;
+            z-index: -1;
+        }
+
+        input[type="radio"].toggle.toggle-left+label:after,
+        input[type="checkbox"].toggle.toggle-left+label:after {
+            left: 100%;
+        }
+
+        input[type="radio"].toggle.toggle-right+label:after,
+        input[type="checkbox"].toggle.toggle-right+label:after {
+            left: -100%;
+        }
+
+        input[type="radio"].toggle:checked+label,
+        input[type="checkbox"].toggle:checked+label {
+            background: #FFF;
+            cursor: default;
+            color: #000;
+        }
+
+        input[type="radio"].toggle:checked+label:after,
+        input[type="checkbox"].toggle:checked+label:after {
+            left: 0;
+        }
+
+        input[type="file"] {
+            /* position: absolute; */
+            /* inset: 0px; */
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="con">
+        <div class="form-container">
+            <div class="form-progress">
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+            <form id="multiStepForm" class="form">
+                <div class="form-step active" data-step="1">
+                    <div class="form-question">
+                        <h3 class="mb-5">1. Please Select a Warehouse</h3>
+                        <div class="input-control">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q1-opt1" class="toggle toggle-left next-btn" name="q1" type="radio">
+                                    <label for="q1-opt1" class="rad-btn btn"><span>A</span> Swift Storage
+                                        Solutions</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q1-opt2" class="toggle toggle-right next-btn" name="q1" type="radio">
+                                    <label for="q1-opt2" class="rad-btn btn"><span>B</span> MegaWare Logistics</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q1-opt3" class="toggle toggle-right next-btn" name="q1" type="radio">
+                                    <label for="q1-opt3" class="rad-btn btn"><span>C</span> Apex Distribution
+                                        Center</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q1-opt4" class="toggle toggle-right next-btn" name="q1" type="radio">
+                                    <label for="q1-opt4" class="rad-btn btn"><span>D</span> Titan Inventory Hub</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q1-opt5" class="toggle toggle-right next-btn" name="q1" type="radio">
+                                    <label for="q1-opt5" class="rad-btn btn"><span>E</span> Elite Storage Depot</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q1-opt6" class="toggle toggle-right next-btn" name="q1" type="radio">
+                                    <label for="q1-opt6" class="rad-btn btn"><span>F</span> ProLogix Warehouses</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-image">
+                        <img src="../assets/img/warehouse.png" alt="Image 1" style="max-width: 100%;">
+                    </div> -->
+
+                </div>
+
+                <div class="form-step" data-step="2">
+                    <div class="form-question">
+                        <h3 class="mb-5">2. What's the Type of Item ?</h3>
+                        <div class="input-control">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q2-opt1" class="toggle toggle-left next-btn" name="q2" type="radio">
+                                    <label for="q2-opt1" class="rad-btn btn"><span>A</span> Expiry Item</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q2-opt2" class="toggle toggle-right next-btn" name="q2" type="radio">
+                                    <label for="q2-opt2" class="rad-btn btn"><span>B</span> Non-Moving Item</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q2-opt3" class="toggle toggle-right next-btn" name="q2" type="radio">
+                                    <label for="q2-opt3" class="rad-btn btn"><span>C</span> Excess Item</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-image">
+                        <img src="../assets/img/inventory2.png" alt="Image 2" style="max-width: 100%;">
+                    </div> -->
+                </div>
+
+
+                <div class="form-step" data-step="3">
+                    <div class="form-question">
+                        <h3 class="mb-5">3. Pick a Date</h3>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group date" id="start-date">
+                                    <input type="text" class="form-control" id="date" />
+                                    <span class="input-group-append">
+                                        <span class="input-group-text bg-light d-block">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group date" id="end-date">
+                                    <input type="text" class="form-control" id="date" />
+                                    <span class="input-group-append">
+                                        <span class="input-group-text bg-light d-block">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-image">
+                        <img src="../assets/img/items.png" alt="Image 3" style="max-width: 100%;">
+                    </div> -->
+                </div>
+
+
+                <div class="form-step" data-step="4">
+                    <div class="form-question">
+                        <h3 class="pb-5">4. Which Branch ?</h3>
+                        <p class="mb-5">Select as many as you can</p>
+                        <div class="input-control">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q4-opt1" class="toggle toggle-left" name="q4" type="checkbox">
+                                    <label for="q4-opt1" class="rad-btn btn"><span>A</span> Mumbai Central
+                                        Branch</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q4-opt2" class="toggle toggle-right" name="q4" type="checkbox">
+                                    <label for="q4-opt2" class="rad-btn btn"><span>B</span> Colaba Branch</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q4-opt3" class="toggle toggle-right" name="q4" type="checkbox">
+                                    <label for="q4-opt3" class="rad-btn btn"><span>C</span> Bandra West Branch
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q4-opt4" class="toggle toggle-right" name="q4" type="checkbox">
+                                    <label for="q4-opt4" class="rad-btn btn"><span>D</span> Andheri East Branch</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q4-opt5" class="toggle toggle-right" name="q4" type="checkbox">
+                                    <label for="q4-opt5" class="rad-btn btn"><span>E</span> Dadar West Branch</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q4-opt6" class="toggle toggle-right" name="q4" type="checkbox">
+                                    <label for="q4-opt6" class="rad-btn btn"><span>F</span> Malad West Branch</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q4-opt7" class="toggle toggle-right" name="q4" type="checkbox">
+                                    <label for="q4-opt7" class="rad-btn btn"><span>G</span> Vashi Branch</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-image">
+                        <img src="../assets/img/branch.png" alt="Image 2" style="max-width: 100%;">
+                    </div> -->
+                </div>
+
+                <div class="form-step" data-step="5">
+                    <div class="form-question">
+                        <h3 class="pb-5">5. Who's the Manufacturer?</h3>
+                        <p class="mb-5">Select as many as you can</p>
+                        <div class="input-control">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q5-opt1" class="toggle toggle-left" name="q5" type="checkbox">
+                                    <label for="q5-opt1" class="rad-btn btn"><span>A</span> Marico Limited</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q5-opt2" class="toggle toggle-right" name="q5" type="checkbox">
+                                    <label for="q5-opt2" class="rad-btn btn"><span>B</span> Dabur India Limited</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q5-opt3" class="toggle toggle-right" name="q5" type="checkbox">
+                                    <label for="q5-opt3" class="rad-btn btn"><span>C</span> Colgate-Palmolive India
+                                        Limited</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q5-opt4" class="toggle toggle-right" name="q5" type="checkbox">
+                                    <label for="q5-opt4" class="rad-btn btn"><span>D</span> Asian Paints
+                                        Limited</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q5-opt5" class="toggle toggle-right" name="q5" type="checkbox">
+                                    <label for="q5-opt5" class="rad-btn btn"><span>E</span> Procter & Gamble
+                                        (P&G)</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q5-opt6" class="toggle toggle-right" name="q5" type="checkbox">
+                                    <label for="q5-opt6" class="rad-btn btn"><span>F</span> Parle Products Pvt.
+                                        Ltd.</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q5-opt7" class="toggle toggle-right" name="q5" type="checkbox">
+                                    <label for="q5-opt7" class="rad-btn btn"><span>G</span> Asian Paints Limited</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q5-opt8" class="toggle toggle-right" name="q5" type="checkbox">
+                                    <label for="q5-opt8" class="rad-btn btn"><span>H</span> Johnson & Johnson
+                                        India</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-image">
+                        <img src="../assets/img/manufacturer.png" alt="Image 2" style="max-width: 100%;">
+                    </div> -->
+                </div>
+
+                <div class="form-step" data-step="6">
+                    <div class="form-question">
+                        <h3 class="pb-5">6. ..and the Supplier?</h3>
+                        <p class="mb-5">Select as many as you can</p>
+                        <div class="input-control">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q6-opt1" class="toggle toggle-left" name="q6" type="checkbox">
+                                    <label for="q6-opt1" class="rad-btn btn"><span>A</span> Nature's Basket</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q6-opt2" class="toggle toggle-right" name="q6" type="checkbox">
+                                    <label for="q6-opt2" class="rad-btn btn"><span>B</span> Grocio</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q6-opt3" class="toggle toggle-right" name="q6" type="checkbox">
+                                    <label for="q6-opt3" class="rad-btn btn"><span>C</span> DMart</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q6-opt4" class="toggle toggle-right" name="q6" type="checkbox">
+                                    <label for="q6-opt4" class="rad-btn btn"><span>D</span> StarQuik (Tata
+                                        Digital)</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q6-opt5" class="toggle toggle-right" name="q6" type="checkbox">
+                                    <label for="q6-opt5" class="rad-btn btn"><span>E</span> Spencer's Retail</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q6-opt6" class="toggle toggle-right" name="q6" type="checkbox">
+                                    <label for="q6-opt6" class="rad-btn btn"><span>F</span> Walmart India Pvt.
+                                        Ltd.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-image">
+                        <img src="../assets/img/supplier.png" alt="Image 2" style="max-width: 100%;">
+                    </div> -->
+                </div>
+
+                <div class="form-step" data-step="7">
+                    <div class="form-question">
+                        <h3 class="pb-5">7. Last, What's the Item Category ?</h3>
+                        <p class="mb-5">Select as many as you can</p>
+                        <div class="input-control">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q7-opt1" class="toggle toggle-left" name="q7" type="checkbox">
+                                    <label for="q7-opt1" class="rad-btn btn"><span>A</span> Food and Beverages</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q7-opt2" class="toggle toggle-right" name="q7" type="checkbox">
+                                    <label for="q7-opt2" class="rad-btn btn"><span>B</span> Personal Care and
+                                        Hygiene</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q7-opt3" class="toggle toggle-right" name="q7" type="checkbox">
+                                    <label for="q7-opt3" class="rad-btn btn"><span>C</span> Household Cleaning and
+                                        Care</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input id="q7-opt4" class="toggle toggle-right" name="q7" type="checkbox">
+                                    <label for="q7-opt4" class="rad-btn btn"><span>D</span> Health and Wellness</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q7-opt5" class="toggle toggle-right" name="q7" type="checkbox">
+                                    <label for="q7-opt5" class="rad-btn btn"><span>E</span> Baby and Child Care</label>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input id="q7-opt6" class="toggle toggle-right" name="q7" type="checkbox">
+                                    <label for="q7-opt6" class="rad-btn btn"><span>F</span> Pet Care</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-image">
+                        <img src="../assets//img/inventory.png" alt="Image 2" style="max-width: 100%;">
+                    </div> -->
+                </div>
+
+                <div class="form-step" data-step="8">
+                    <div class="form-question">
+                        <h3 class="mb-5">3. Upload Transcript?</h3>
+
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label"></label>
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="button" class="btn btn-primary prev-btn me-2">Previous</button>
+                            <button type="button" class="btn btn-primary next-btn">Next</button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-image">
+                        <img src="../assets/img/items.png" alt="Image 3" style="max-width: 100%;">
+                    </div> -->
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script> -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const totalSteps = 7;
+            // Show the first step
+            showStep(1);
+            $('#start-date').datepicker();
+            $('#end-date').datepicker();
+
+
+            // Handle next button click
+            $('.next-btn').click(function () {
+                var currentStep = $(this).closest('.form-step').data('step');
+                showStep(currentStep + 1);
+            });
+
+            // Handle previous button click
+            $('.prev-btn').click(function () {
+                var currentStep = $(this).closest('.form-step').data('step');
+                showStep(currentStep - 1);
+            });
+
+            // Handle form submission
+            $('#multiStepForm').submit(function (e) {
+                e.preventDefault();
+                // Perform form submission logic here
+            });
+
+            // Function to show the given step
+            function showStep(step) {
+                // Hide all form steps
+                console.log(step);
+                const formSteps = document.querySelectorAll('.form-step');
+                formSteps.forEach((formStep) => {
+                    formStep.style.display = 'none';
+                });
+
+                // Show the current step
+                const currentStep = document.querySelector(`.form-step[data-step="${step}"]`);
+                currentStep.style.display = 'block';
+
+                // Add animation effects to the step transition
+                currentStep.classList.add('fade-in');
+
+                const progress = document.querySelector('.progress');
+                progress.style.width = `${((step - 1) / totalSteps) * 100}%`;
+
+                if (step === 2) {
+                    // Expiry Item question
+                    $('#q2-opt2').click(function () {
+                        showStep(8);
+                    });
+                    $('#q2-opt3').click(function () {
+                        showStep(8);
+                    });
+                }
+            }
+
+        });
+
+    </script>
