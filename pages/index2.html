@@ -13,7 +13,7 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+    <!-- <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" /> -->
 
     <style>
         body {
@@ -291,6 +291,57 @@
             height: 100%;
             opacity: 0;
             cursor: pointer;
+        }
+
+        .main-content {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .page-header {
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: 50%;
+        }
+
+        .min-vh-100 {
+            min-height: 100vh !important;
+        }
+
+        .page-header .container {
+            z-index: 1;
+        }
+
+        @media (min-width: 992px) {
+            .mx-lg-0 {
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+            }
+        }
+
+        .flex-column {
+            flex-direction: column !important;
+        }
+
+        .card.card-plain {
+            background-color: transparent;
+            box-shadow: none !important;
+        }
+
+        .card .card-body {
+            /* font-family: "Open Sans", sans-serif; */
+            padding: 1.5rem;
+        }
+
+        .card-body {
+            flex: 1 1 auto;
+        }
+
+        .card {
+            border: none !important;
         }
     </style>
 
