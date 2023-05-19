@@ -194,6 +194,10 @@
             .rad-btn {
                 width: auto;
             }
+
+            footer {
+                background: #000000a8 !important;
+            }
         }
 
         /* Medium screens (577px - 992px) */
@@ -211,7 +215,7 @@
             }
 
             .rad-btn {
-                width: auto;
+                width: auto !important;
             }
         }
 
@@ -398,7 +402,7 @@
             color: white;
         }
 
-        input[type="radio"].toggle:checked+label span {
+        input[type="radio"].toggle:checked+label span, input[type="checkbox"].toggle:checked+label span {
             color: black;
             background-color: white;
         }
@@ -928,8 +932,8 @@
                                                         </form>
 
                                                         <div class="form-buttons">
-                                                            <button type="button"
-                                                                class="btn btn-primary prev-btn me-2">PREV</button>
+                                                            <!-- <button type="button"
+                                                                class="btn btn-primary prev-btn me-2">PREV</button> -->
                                                             <button type="button"
                                                                 class="btn btn-primary">SUBMIT</button>
                                                         </div>
@@ -962,7 +966,7 @@
                                     <script>
                                         document.write(new Date().getFullYear())
                                     </script>,
-                                    made with <i class="fa fa-bomb text-white"></i> by
+                                    made with <i class="fa fa-fire text-white"></i> by
                                     <a href="" class="font-weight-bold text-white" target="_blank">Wellness Forever</a>
 
                                 </div>
