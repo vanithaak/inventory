@@ -913,8 +913,8 @@
                                                         <div class="form-buttons">
                                                             <button type="button"
                                                                 class="btn btn-primary prev-btn me-2">PREV</button>
-                                                                <a type="button"
-                                                                class="btn btn-primary" href="data.html">SUBMIT</a>F
+                                                            <a type="button" class="btn btn-primary"
+                                                                href="data.html">SUBMIT</a>
                                                         </div>
                                                     </div>
                                                     <!-- <div class="form-image">
@@ -926,17 +926,17 @@
                                                     <div class="form-question">
                                                         <h3 class="mb-5">3. Upload Transcript?</h3>
 
-                                                        <form action="/upload" class="dropzone" id="myDropzone">
+                                                        <div class="dropzone" id="myDropzone">
                                                             <div class="fallback">
                                                                 <input type="file" name="file" multiple>
                                                             </div>
-                                                        </form>
+                                                        </div>
 
                                                         <div class="form-buttons">
                                                             <!-- <button type="button"
                                                                 class="btn btn-primary prev-btn me-2">PREV</button> -->
-                                                            <a type="button"
-                                                                class="btn btn-primary" href="data.html">SUBMIT</a>
+                                                            <a type="button" class="btn btn-primary"
+                                                                href="data.html">SUBMIT</a>
                                                         </div>
                                                     </div>
                                                     <!-- <div class="form-image">
@@ -1002,37 +1002,38 @@
 
 
     <script>
+        if (typeof Dropzone !== "undefined") {
+            Dropzone.autoDiscover = false; // Disable autoDiscover to prevent multiple attachments
+            console.log('hi')
+
+            // Initialize Dropzone on the form
+            var myDropzone = new Dropzone("#myDropzone", {
+                url: "/upload",
+                paramName: "file", // Name of the file input field
+                maxFilesize: 5, // Maximum file size in MB
+                acceptedFiles: ".jpeg,.jpg,.png,.pdf", // Allowed file extensions
+                dictDefaultMessage: "Drop files here or click to upload", // Default message
+                addRemoveLinks: true, // Show remove button
+            });
+
+            // Event listener for when files are added
+            myDropzone.on("addedfile", function (file) {
+                console.log("File added: " + file.name);
+            });
+
+            // Event listener for when files are successfully uploaded
+            myDropzone.on("success", function (file, response) {
+                console.log("File uploaded: " + file.name);
+                console.log("Server response: " + response);
+            });
+
+            // Event listener for when an error occurs during upload
+            myDropzone.on("error", function (file, errorMessage) {
+                console.log("Error uploading file: " + file.name);
+                console.log("Error message: " + errorMessage);
+            });
+        }
         $(document).ready(function () {
-            // if (typeof Dropzone !== "undefined") {
-            //     Dropzone.autoDiscover = false; // Disable autoDiscover to prevent multiple attachments
-
-            //     // Initialize Dropzone on the form
-            //     var myDropzone = new Dropzone("#myDropzone", {
-            //         url: "/upload",
-            //         paramName: "file", // Name of the file input field
-            //         maxFilesize: 5, // Maximum file size in MB
-            //         acceptedFiles: ".jpeg,.jpg,.png,.pdf", // Allowed file extensions
-            //         dictDefaultMessage: "Drop files here or click to upload", // Default message
-            //         addRemoveLinks: true, // Show remove button
-            //     });
-
-            //     // Event listener for when files are added
-            //     myDropzone.on("addedfile", function (file) {
-            //         console.log("File added: " + file.name);
-            //     });
-
-            //     // Event listener for when files are successfully uploaded
-            //     myDropzone.on("success", function (file, response) {
-            //         console.log("File uploaded: " + file.name);
-            //         console.log("Server response: " + response);
-            //     });
-
-            //     // Event listener for when an error occurs during upload
-            //     myDropzone.on("error", function (file, errorMessage) {
-            //         console.log("Error uploading file: " + file.name);
-            //         console.log("Error message: " + errorMessage);
-            //     });
-            // }
 
             $('.btn').click(function () {
                 var button = $(this);
